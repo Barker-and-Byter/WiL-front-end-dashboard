@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+
+.core-header {
+    font-size: 20px;
+}
+
+@layer utilities {
+
+    .card-hover-animate {
+        @apply backdrop-blur-md bg-linear-to-b from-[hsl(0,0%,10%)]/30 to-[hsl(0,0%,5%)]/30 hover:bg-linear-to-b hover:from-[hsl(0,0%,10%)]/70 hover:to-[hsl(0,0%,5%)]/70 transition duration-500 ease-in-out border-t-[hsl(0,0%,60%)]
+    }
+
+}
+
