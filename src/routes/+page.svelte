@@ -7,6 +7,7 @@
 	import { AreaChart, defaultChartPadding } from 'layerchart';
 	import { cls } from '@layerstack/tailwind';
     import { onDestroy, onMount, untrack } from 'svelte';
+	import { PUBLIC_EVENT_SOURCE_ONE, PUBLIC_EVENT_SOURCE_TWO } from '$env/static/public';
 
 	let CPUvalue = $state(0);
     let RAMvalue = $state(0);
@@ -154,16 +155,16 @@ function reset(){
 
 function serverChange(newServer: string) {
 	reset();
-	const port = newServer === 'Server 2' ? "3001" : "3000";
+	const port = newServer === 'Server 2' ? PUBLIC_EVENT_SOURCE_ONE : PUBLIC_EVENT_SOURCE_TWO;
 	server = newServer;
-	console.log(`connecting to server ${server} on port ${port}`);
-	eventSource = new EventSource(`http://localhost:${port}/data-stream`);
+	console.log(`connecting to server ${server} on event source ${port}`);
+	eventSource = new EventSource(`${port}/data-stream`);
 	startReceiving(eventSource);
 }
 
-
+// release version has to be setcapped before runnig (make a script J dog)
 onMount(() => {
-	eventSource = new EventSource('http://localhost:3000/data-stream');   
+	eventSource = new EventSource(PUBLIC_EVENT_SOURCE_ONE + '/data-stream');   
     startReceiving(eventSource); 
 
 	return () => {
