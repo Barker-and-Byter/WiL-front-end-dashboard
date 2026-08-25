@@ -4,7 +4,7 @@
 import { BarChart, Text,Spline,Chart, Axis, Area, AreaChart, defaultChartPadding, LinearGradient, pivotLonger, Layer } from 'layerchart';
 import { group } from 'd3-array';
 import { onMount, untrack } from "svelte";
-
+import { PUBLIC_EVENT_SOURCE_ONE, PUBLIC_EVENT_SOURCE_TWO } from '$env/static/public';
 type DataPoint = {
   time?: Date;
   s1CpuValue?: number;
@@ -180,8 +180,8 @@ if (Object.keys(serverCache1).length > 0 && Object.keys(serverCache2).length > 0
 
 
 onMount(() => {
-  let serverSource1: EventSource = new EventSource("http://localhost:3000/data-stream");
-  let serverSource2: EventSource = new EventSource('http://localhost:3001/data-stream');
+  let serverSource1: EventSource = new EventSource(PUBLIC_EVENT_SOURCE_ONE + "/data-stream");
+  let serverSource2: EventSource = new EventSource(PUBLIC_EVENT_SOURCE_TWO + '/data-stream');
   
   serverSource1.onmessage = (event) =>{
       const data = JSON.parse(event.data);
@@ -196,7 +196,7 @@ onMount(() => {
         s1DriveFree: Number(data.driveFree ?? 0),
         s1RamUsed: Number(data.ramUsed ?? 0),
         s1RamFree: Number(data.ramFree ?? 0),
-        s1upSpeed: Number(data.upSpeed ?? 0) + 10,
+        s1upSpeed: Number(data.upSpeed ?? 0),
         s1downSpeed: Number(data.downSpeed ?? 0),
         s1writeSpeed: Number(data.writeSpeed ?? 0),
         s1readSpeed: Number(data.readSpeed ?? 0),
@@ -212,8 +212,8 @@ onMount(() => {
       const latency = data.timestamp - localTime;
 
       serverCache2 = {
-        s2CpuValue : Number(data.cpuUsage ?? 0) + 10,
-        s2RamValue: Number(data.ramUsage ?? 0) + 10,
+        s2CpuValue : Number(data.cpuUsage ?? 0),
+        s2RamValue: Number(data.ramUsage ?? 0),
         s2DriveUsage: Number(data.driveUsage ?? 0),
         s2DriveUsed: Number(data.driveUsed ?? 0),
         s2DriveFree: Number(data.driveFree ?? 0),

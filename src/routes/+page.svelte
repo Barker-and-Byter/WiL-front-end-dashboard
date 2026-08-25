@@ -76,6 +76,7 @@
 			}
 			const localTime = Date.now();
 			latency = localTime - data.timestamp;
+			latency = Math.abs(latency);
 			CPUvalue = Number(data.cpuUsage);
 			CPUDataGraph = [
   				...CPUDataGraph.slice(1).map(point => ({ ...point, time: point.time - 1 })),
