@@ -250,7 +250,7 @@ onMount(() => {
       <!-- Left: Logo, Center: Nav Links, Right: Action & Mobile -->
       <a href="/home" class="text-4xl font-bold text-violet-600/95">Dashi Boardi</a>
       <div class="hidden md:flex space-x-8">
-        <a href="home" class="text-[hsl(0,0%,70%)] hover:text-indigo-400">Home</a>
+        <a href="home" class="text-[hsl(0,0%,70%)] hover:text-indigo-400 border-b-2 border-indigo-500">Home</a>
         <a href="../" class="text-[hsl(0,0%,70%)] hover:text-indigo-400">Servers </a>
       </div>
       <button id="btn" class="md:hidden p-2 text-white">Menu</button>

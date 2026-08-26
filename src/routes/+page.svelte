@@ -122,7 +122,7 @@
 			console.error("eventSource failed:", err);
 		};
 	}
-	let server = $state('Server 1');
+	let server = $state('Servers');
 //function that resets any graphs
 function reset(){
 	if ( eventSource ) {
@@ -184,7 +184,7 @@ onDestroy(() => {
 <main class="min-h-screen">
 
 <div class="sticky top-0 z-10  bg-[#161719]/50 border-[hsl(0,0%,30%)] border-b border-t border-t-[hsl(0,0%,40%)] backdrop-blur-sm">
-	  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+	  <div class="w-full mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between text-left h-16">
       <!-- Left: Logo, Center: Nav Links, Right: Action & Mobile -->
       <a href="/home" class="text-4xl text-left font-bold text-violet-600/95">Dashi Boardi</a>
@@ -192,7 +192,7 @@ onDestroy(() => {
 	  <a href="/home" class="text-[hsl(0,0%,70%)] hover:text-indigo-400">Home</a>
 	  <div class="relative inline-block text-left group">
 			<button type="button"
-			class="inline-flex items-center w-full text-[hsl(0,0%,70%)] hover:text-indigo-400 focus:outline-none">
+			class="inline-flex items-center w-full text-[hsl(0,0%,70%)] hover:text-indigo-400 border-b-2 border-indigo-500 focus:outline-none">
 				{server}
 			<svg class="w-4 h-4 ml-2 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
 			<path fill-rule="evenodd" d="m10 12l-5-5h10l-5 5z"/>
