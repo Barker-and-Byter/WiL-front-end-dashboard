@@ -183,13 +183,15 @@ onDestroy(() => {
 <!--Navigation bar-->
 <main class="min-h-screen">
 
-<div class="sticky top-0 z-10  bg-[#161719]/50 border-[hsl(0,0%,30%)] border-b border-t border-t-[hsl(0,0%,40%)] backdrop-blur-sm">
+<nav class="sticky top-0 z-10  bg-[#161719]/50 border-[hsl(0,0%,30%)] border-b border-t border-t-[hsl(0,0%,40%)] backdrop-blur-sm">
 	  <div class="w-full mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between text-left h-16">
       <!-- Left: Logo, Center: Nav Links, Right: Action & Mobile -->
       <a href="/home" class="text-4xl text-left font-bold text-violet-600/95">Dashi Boardi</a>
       <div class="hidden md:flex space-x-8 items-center">
-	  <a href="/home" class="text-[hsl(0,0%,70%)] hover:text-indigo-400">Home</a>
+	  <a href="/home" class="group relative items-center transition duration-300 text-[hsl(0,0%,70%)] hover:text-indigo-400">Home
+		<span class="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-500 transition-transform duration-500 scale-x-0 group-hover:scale-x-100 origin-center"></span>
+	</a>
 	  <div class="relative inline-block text-left group">
 			<button type="button"
 			class="inline-flex items-center w-full text-[hsl(0,0%,70%)] hover:text-indigo-400 border-b-2 border-indigo-500 focus:outline-none">
@@ -222,16 +224,16 @@ onDestroy(() => {
       <button id="btn" class="md:hidden p-2 text-white">Menu</button>
     </div>
   </div>
-</div>
+</nav>
 
 <div class="pb-20"></div>
 
-<div class="grid grid-cols-5 justify-center gap-4 pr-30 pl-30  overflow-auto">
+<div class="grid grid-cols-5 max-w-400 mx-auto justify-center gap-4">
 
 	{#if isLoading}
-		<div class="shadow-lg w-80 aspect-square bg-zinc-500 animate-pulse rounded-lg  items-center justify-center flex flex-col">
+		<div class="shadow-lg max-w-80 aspect-square bg-zinc-500 animate-pulse rounded-lg justify-center items-center flex flex-col">
 		<span class="text-sm  text-white/0 bg-zinc-300 animate-pulse"> CPU usage%</span>
-		    <div class="relative w-50 h-50 flex items-center justify-center">
+		    <div class="relative w-3/5 h-3/5 flex items-center justify-center">
                 <svg class="w-full h-full animate-pulse text-zinc-300" viewBox="0 0 100 100">
                     <circle 
                         cx="50" 
@@ -246,9 +248,10 @@ onDestroy(() => {
             </div>
         </div>
 	{:else}
-	<div class="shadow-lg w-80 backdrop-blur-lg aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-lg  items-center justify-center flex flex-col">
-	<span class="text-xl text-[hsl(0,0%,95%)]"> CPU usage%</span>
-	<Chart height={200} padding={20}>
+	<div class="shadow-lg max-w-80 backdrop-blur-lg aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-lg justify-center items-center flex flex-col">
+	<span class="text-xl sm:text-lg text-[hsl(0,0%,95%)]"> CPU usage%</span>
+	<div class="max-h-50 min-h-40 w-full flex-1">
+	<Chart padding={20}>
 		<Layer center>
 			<SpringValue value={CPUvalue} let:value>
 				{#each { length: 25 } as _, segmentIndex}
@@ -276,18 +279,19 @@ onDestroy(() => {
 					textAnchor="middle"
 					verticalAnchor="middle"
 					dy={16}
-					class= {"text-6xl tabular-nums font-bold text-white"}
+					class= {"text-4xl sm:text-2xl lg:text-6xl tabular-nums font-bold text-white"}
 				/>
 			</SpringValue>
 		</Layer>
 	</Chart>
 	</div>
+	</div>
 	{/if}
 	<!--Second chart for RAM usage-->
 	{#if isLoading}
-		<div class="shadow-lg w-80 aspect-square bg-zinc-500 animate-pulse rounded-lg  items-center justify-center flex flex-col">
+		<div class="shadow-lg max-w-80 aspect-square bg-zinc-500 animate-pulse rounded-lg  items-center justify-center flex flex-col">
 		<span class="text-sm  text-white/0 bg-zinc-300 animate-pulse"> CPU usage%</span>
-		    <div class="relative w-50 h-50 flex items-center justify-center">
+		    <div class="relative w-3/5 h-3/5 flex items-center justify-center">
                 <svg class="w-full h-full animate-pulse text-zinc-300" viewBox="0 0 100 100">
                     <circle 
                         cx="50" 
@@ -302,10 +306,10 @@ onDestroy(() => {
             </div>
         </div>
 	{:else}
-	<div class="w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-lg items-center justify-center flex flex-col ">
-		<span class="text-xl  text-white"> RAM usage%</span>
-
-	<Chart height={200} padding={20}>
+	<div class="max-w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-lg items-center justify-center flex flex-col ">
+		<span class="text-xl sm:text-lg text-white"> RAM usage%</span>
+	<div class="max-h-50 min-h-40 w-full flex-1">
+	<Chart padding={20}>
 		<Layer center>
 			<SpringValue value={RAMvalue} let:value>
 				{#each { length: 25 } as _, segmentIndex}
@@ -333,18 +337,19 @@ onDestroy(() => {
 					textAnchor="middle"
 					verticalAnchor="middle"
 					dy={16}
-					class="text-6xl tabular-nums font-bold text-white"
+					class="text-4xl sm:text-2xl lg:text-6xl tabular-nums font-bold text-white"
 				/>
 			</SpringValue>
 		</Layer>
 	</Chart>
 	</div>
+	</div>
 	{/if}
 	<!--Third Gauge for Storage Usage-->
 	{#if isLoading}
-		<div class="shadow-lg w-80 aspect-square bg-zinc-500 animate-pulse rounded-lg  items-center justify-center flex flex-col">
-		<span class="text-xl  text-white/0 bg-zinc-300 animate-pulse"> CPU usage%</span>
-		    <div class="relative w-50 h-50 flex items-center justify-center">
+		<div class="shadow-lg max-w-80 aspect-square bg-zinc-500 animate-pulse rounded-lg  items-center justify-center flex flex-col">
+		<span class="text-sm text-white/0 bg-zinc-300 animate-pulse"> CPU usage%</span>
+		    <div class="relative w-3/5 h-3/5 flex items-center justify-center">
                 <svg class="w-full h-full animate-pulse text-zinc-300" viewBox="0 0 100 100">
                     <circle 
                         cx="50" 
@@ -359,10 +364,10 @@ onDestroy(() => {
             </div>
         </div>
 	{:else}
-	<div class="w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-lg items-center justify-center flex flex-col ">
-		<span class="text-xl  text-white"> Storage Usage%</span>
-
-	<Chart height={200} padding={20}>
+	<div class="max-w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-lg items-center justify-center flex flex-col ">
+		<span class="text-xl sm:text-sm  text-white"> Storage Usage%</span>
+	<div class="max-h-50 w-full min-h-40 flex-1">
+	<Chart padding={20}>
 		<Layer center>
 			<SpringValue value={driveValue} let:value>
 				{#each { length: 25 } as _, segmentIndex}
@@ -390,18 +395,19 @@ onDestroy(() => {
 					textAnchor="middle"
 					verticalAnchor="middle"
 					dy={16}
-					class="text-6xl tabular-nums font-bold text-white"
+					class="text-4xl sm:text-3xl lg:text-6xl tabular-nums font-bold text-white"
 				/>
 			</SpringValue>
 		</Layer>
 	</Chart>
 	</div>
+	</div>
 	{/if}
 	<!--Piechart for storage-->
 	{#if isLoading}
-	<div class="shadow-lg w-80 aspect-square bg-zinc-500 animate-pulse rounded-lg  items-center justify-center flex flex-col">
-		<span class="text-xl  text-white/0 bg-zinc-300 animate-pulse"> CPU usage%</span>
-		    <div class="relative w-50 h-50 flex items-center justify-center">
+	<div class="shadow-lg max-w-80 aspect-square bg-zinc-500 animate-pulse rounded-lg  items-center justify-center flex flex-col">
+		<span class="text-xl sm:text-sm text-white/0 bg-zinc-300 animate-pulse"> CPU usage%</span>
+		    <div class="relative w-3/5 h-3/5 flex items-center justify-center">
                 <svg class="w-full h-full animate-pulse text-zinc-300" viewBox="0 0 100 100">
                     <circle 
                         cx="50" 
@@ -417,8 +423,9 @@ onDestroy(() => {
             </div>
         </div>
 	{:else}
-	<div class='w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-lg items-center justify-center flex flex-col '>
-	<h1 class="text-xl  text-[hsl(0,0%,95%)] pb-6"> Storage Distribution</h1>
+	<div class='max-w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-lg items-center justify-center flex flex-col '>
+	<h1 class="text-xl sm:text-sm  text-[hsl(0,0%,95%)] pb-6"> Storage Distribution</h1>
+	<div class="max-h-60 flex-1 w-full min-h-30">
 		<PieChart
 			data = {storageData}
 			key="label"
@@ -428,14 +435,14 @@ onDestroy(() => {
 			cornerRadius={5}
 			props={{pie: { motion: 'spring' }}}
 			padAngle={0.02}
-			height={200}
+			padding={20}
 		>
 			{#snippet aboveMarks()}
 				<Text
 					value={(storageData[0].value + storageData[1].value).toFixed(2) + ' GB'}
 					textAnchor="middle"
 					verticalAnchor="middle"
-					class="text-3xl  text-white"
+					class="text-2xl sm:text-sm lg:text-3xl text-white"
 					dy={4}
 				/>
 				<Text
@@ -448,12 +455,13 @@ onDestroy(() => {
 			{/snippet}
 		</PieChart>
 	</div>
+	</div>
 	{/if}
 		<!--Ram piechart-->
 	{#if isLoading}
-		<div class="shadow-lg w-80 aspect-square bg-zinc-500 animate-pulse rounded-lg  items-center justify-center flex flex-col">
-		<span class="text-sm  text-white/0 bg-zinc-300 animate-pulse"> CPU usage%</span>
-		    <div class="relative w-50 h-50 flex items-center justify-center">
+		<div class="shadow-lg max-w-80 aspect-square bg-zinc-500 animate-pulse rounded-lg  items-center justify-center flex flex-col">
+		<span class="text-sm text-white/0 bg-zinc-300 animate-pulse"> CPU usage%</span>
+		    <div class="relative w-3/5 h-3/5 flex items-center justify-center">
                 <svg class="w-full h-full animate-pulse text-zinc-300" viewBox="0 0 100 100">
                     <circle 
                         cx="50" 
@@ -469,8 +477,9 @@ onDestroy(() => {
             </div>
         </div>
 	{:else}
-	<div class='w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-lg items-center justify-center flex flex-col '>
+	<div class='max-w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-lg items-center justify-center flex flex-col '>
 	<span class="text-sm  text-white pb-6"> RAM Distribution</span>
+	<div class="max-h-60 w-full min-h-30 flex-1">
 		<PieChart
 			data = {RAMdata}
 			key="label"
@@ -480,14 +489,14 @@ onDestroy(() => {
 			cornerRadius={5}
 			props={{pie: { motion: 'spring' }}}
 			padAngle={0.02}
-			height={200}
+			padding={20}
 		>
 			{#snippet aboveMarks()}
 				<Text
 					value={(RAMdata[0].value + RAMdata[1].value).toFixed(2) + ' GB'}
 					textAnchor="middle"
 					verticalAnchor="middle"
-					class="text-3xl  text-white"
+					class="text-2xl sm:text-sm lg:text-3xl  text-white"
 					dy={4}
 				/>
 				<Text
@@ -500,19 +509,21 @@ onDestroy(() => {
 			{/snippet}
 		</PieChart>
 	</div>
+	</div>
 	{/if}
 	
 
 	<!--Latency-->
 	{#if isLoading}
-		<div class="shadow-lg w-80 aspect-square bg-zinc-500 animate-pulse rounded-lg space-y-20 items-center justify-center flex flex-col">
-		<span class="block w-46 h-lh bg-zinc-300 animate-pulse place-content-start"></span>
-		<span class="block w-60 h-14 bg-zinc-300 animate-pulse"></span>
+		<div class="shadow-lg max-w-80 w-full aspect-square bg-zinc-500 animate-pulse rounded-lg space-y-[25%] items-center justify-center flex flex-col">
+		<span class="block w-[60%] h-[10%] bg-zinc-300 animate-pulse place-content-start"></span>
+		<span class="block w-[75%] h-[20%] bg-zinc-300 animate-pulse"></span>
 	</div>
 	{:else}
-	<div class='w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-lg items-center justify-center flex flex-col '>
-		<span class="text-xl  text-white pb-6"> Latency</span>
-	<Chart height={200} padding={20}>
+	<div class='max-w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-lg items-center justify-center flex flex-col '>
+		<span class="text-lg xl:text-xl sm:text-sm  text-white pb-6"> Latency</span>
+	<div class="max-h-50 min-h-30 w-full flex-1">
+	<Chart padding={20}>
 		<Layer center>
 			<SpringValue value={latency} let:value>
 
@@ -521,24 +532,26 @@ onDestroy(() => {
 					textAnchor="middle"
 					verticalAnchor="middle"
 					dy={16}
-					class="text-5xl tabular-nums font-bold text-white"
+					class="text-3xl sm:text-sm lg:text-5xl tabular-nums font-bold text-white"
 				/>
 			</SpringValue>
 		</Layer>
 	</Chart>
 	</div>
+	</div>
 	{/if}
 
 	<!--Upload speed raw readout-->
 	{#if isLoading}
-		<div class="shadow-lg w-80 aspect-square bg-zinc-500 animate-pulse rounded-lg space-y-20 items-center justify-center flex flex-col">
-		<h1 class="text-xl  text-white/0 bg-zinc-300 animate-pulse place-content-start"> Look at me mum im a stub!</h1>
-		<span class="block w-60 h-14 bg-zinc-300 animate-pulse"></span>
+		<div class="shadow-lg max-w-80 aspect-square bg-zinc-500 animate-pulse rounded-lg space-y-[25%] items-center justify-center flex flex-col">
+		<span class="block w-[60%] h-[10%] bg-zinc-300 animate-pulse place-content-start"></span>
+		<span class="block w-[75%] h-[20%] bg-zinc-300 animate-pulse"></span>
 	</div>
 	{:else}
-	<div class='w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-lg items-center justify-center flex flex-col '>
-		<h1 class="text-xl  text-[hsl(0,0%,95%)] pb-6"> Upload speed</h1>
-		<Chart height={200} padding={20}>
+	<div class='max-w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-lg items-center justify-center flex flex-col '>
+		<h1 class="text-lg xl:text-xl sm:text-sm  text-[hsl(0,0%,95%)] pb-6"> Upload speed</h1>
+		<div class="max-h-50 w-full flex-1 min-h-30">
+		<Chart padding={20}>
 		<Layer center>
 			<SpringValue value={displayUp} let:value>
 
@@ -547,24 +560,27 @@ onDestroy(() => {
 					textAnchor="middle"
 					verticalAnchor="middle"
 					dy={16}
-					class="text-5xl tabular-nums font-bold text-white"
+					class="text-xl sm:text-sm lg:text-4xl tabular-nums font-bold text-white"
 				/>
 			</SpringValue>
 		</Layer>
 	</Chart>
 	</div>
+	</div>
 	{/if}
 
 	<!--Download speed raw readout-->
 	{#if isLoading}
-		<div class="shadow-lg w-80 aspect-square bg-zinc-500 animate-pulse rounded-lg space-y-20 items-center justify-center flex flex-col">
-		<span class="block w-46 h-lh bg-zinc-300 animate-pulse place-content-start"></span>
-		<span class="block w-60 h-14 bg-zinc-300 animate-pulse"></span>
+		<div class="shadow-lg max-w-80 aspect-square bg-zinc-500 animate-pulse rounded-lg space-y-[25%] items-center justify-center flex flex-col">
+		<span class="block w-[60%] h-[10%] bg-zinc-300 animate-pulse place-content-start"></span>
+		<span class="block w-[75%] h-[20%] bg-zinc-300 animate-pulse"></span>
 	</div>
 	{:else}
-	<div class='w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-lg items-center justify-center flex flex-col '>
-		<h1 class="text-xl  text-white pb-6"> Download speed</h1>
-		<Chart height={200} padding={20}>
+	<div class='max-w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-lg items-center justify-center flex flex-col '>
+		<h1 class="text-lg sm:text-sm xl:text-xl  text-white pb-6"> Download speed</h1>
+		<div class="max-h-50 w-full flex-1 min-h-30">
+
+		<Chart padding={20}>
 		<Layer center>
 			<SpringValue value={displayDown} let:value>
 
@@ -573,23 +589,26 @@ onDestroy(() => {
 					textAnchor="middle"
 					verticalAnchor="middle"
 					dy={16}
-					class="text-5xl tabular-nums font-bold text-white"
+					class="text-xl sm:text-sm lg:text-4xl tabular-nums font-bold text-white"
 				/>
 			</SpringValue>
 		</Layer>
 	</Chart>
 	</div>
+	</div>
 	{/if}
 	<!--Disk read speed raw readout-->
 	{#if isLoading}
-		<div class="shadow-lg w-80 aspect-square bg-zinc-500 animate-pulse rounded-lg space-y-20 items-center justify-center flex flex-col">
-		<span class="block w-46 h-lh bg-zinc-300 animate-pulse place-content-start"></span>
-		<span class="block w-60 h-14 bg-zinc-300 animate-pulse"></span>
+		<div class="shadow-lg max-w-80 aspect-square bg-zinc-500 animate-pulse rounded-lg space-y-[25%] items-center justify-center flex flex-col">
+		<span class="block w-[60%] h-[10%] bg-zinc-300 animate-pulse place-content-start"></span>
+		<span class="block w-[75%] h-[20%] bg-zinc-300 animate-pulse"></span>
 	</div>
 	{:else}
-	<div class='w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-lg items-center justify-center flex flex-col '>
-		<h1 class="text-xl  text-white pb-6"> Disk Read Speed</h1>
-		<Chart height={200} padding={20}>
+	<div class='max-w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-lg items-center justify-center flex flex-col '>
+		<h1 class="text-lg sm:text-sm xl:text-xl  text-white pb-6"> Disk Read Speed</h1>
+		<div class="max-h-50 w-full flex-1 min-h-30">
+
+		<Chart padding={20}>
 		<Layer center>
 			<SpringValue value={readSpeed} let:value>
 
@@ -598,23 +617,26 @@ onDestroy(() => {
 					textAnchor="middle"
 					verticalAnchor="middle"
 					dy={16}
-					class="text-5xl tabular-nums font-bold text-white"
+					class="text-xl sm:text-sm lg:text-4xl tabular-nums font-bold text-white"
 				/>
 			</SpringValue>
 		</Layer>
 	</Chart>
 	</div>
+	</div>
 	{/if}
 	<!--Disk write speed raw readout-->
 	{#if isLoading}
-		<div class="shadow-lg w-80 aspect-square bg-zinc-500 animate-pulse rounded-lg space-y-20 items-center justify-center flex flex-col">
-		<span class="block w-46 h-lh bg-zinc-300 animate-pulse place-content-start"></span>
-		<span class="block w-60 h-14 bg-zinc-300 animate-pulse"></span>
+		<div class="shadow-lg max-w-80 aspect-square bg-zinc-500 animate-pulse rounded-lg space-y-[25%] items-center justify-center flex flex-col">
+		<span class="block w-[60%] h-[10%] bg-zinc-300 animate-pulse place-content-start"></span>
+		<span class="block w-[75%] h-[20%] bg-zinc-300 animate-pulse"></span>
 	</div>
 	{:else}
-	<div class='w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-lg items-center justify-center flex flex-col '>
-		<h1 class="text-xl  text-white pb-6"> Disk Write Speed</h1>
-		<Chart height={200} padding={20}>
+	<div class='max-w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-lg items-center justify-center flex flex-col '>
+		<h1 class="text-lg sm:text-sm xl:text-xl  text-white pb-6"> Disk Write Speed</h1>
+		<div class="max-h-50 w-full flex-1 min-h-30">
+
+		<Chart padding={20}>
 		<Layer center>
 			<SpringValue value={writeSpeed} let:value>
 
@@ -623,11 +645,12 @@ onDestroy(() => {
 					textAnchor="middle"
 					verticalAnchor="middle"
 					dy={16}
-					class="text-5xl tabular-nums font-bold text-white"
+					class="text-xl sm:text-sm lg:text-4xl tabular-nums font-bold text-white"
 				/>
 			</SpringValue>
 		</Layer>
 	</Chart>
+	</div>
 	</div>
 	{/if}
 

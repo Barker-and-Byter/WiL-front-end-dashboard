@@ -245,13 +245,15 @@ onMount(() => {
 <main class="min-h-screen bg-[hsl(0,0%,0%)]">
 
 <div class="sticky top-0 z-50 bg-[#161719]/50 border-[hsl(0,0%,30%)] border-b border-t border-t-[hsl(0,0%,40%)] backdrop-blur-sm">
-	  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+	  <div class="w-full mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       <!-- Left: Logo, Center: Nav Links, Right: Action & Mobile -->
       <a href="/home" class="text-4xl font-bold text-violet-600/95">Dashi Boardi</a>
       <div class="hidden md:flex space-x-8">
         <a href="home" class="text-[hsl(0,0%,70%)] hover:text-indigo-400 border-b-2 border-indigo-500">Home</a>
-        <a href="../" class="text-[hsl(0,0%,70%)] hover:text-indigo-400">Servers </a>
+        <a href="../" class="group relative items-center text-[hsl(0,0%,70%)] hover:text-indigo-400">Servers 
+          <span class="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-500 transition-transform duration-500 scale-x-0 group-hover:scale-x-100 origin-center"></span>
+        </a>
       </div>
       <button id="btn" class="md:hidden p-2 text-white">Menu</button>
     </div>
