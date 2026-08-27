@@ -8,6 +8,13 @@
 	import { cls } from '@layerstack/tailwind';
     import { onDestroy, onMount, untrack } from 'svelte';
 	import { PUBLIC_EVENT_SOURCE_ONE, PUBLIC_EVENT_SOURCE_TWO } from '$env/static/public';
+	import dockerlogobright from '$lib/assets/docker-logo-ocean-blue.svg?raw';
+	import dockerlogodim from '$lib/assets/docker-logo-deep-blue.svg?raw';
+	import dockerlogowhite from '$lib/assets/docker-logo-white.svg?raw';
+
+	const dockerlogobrightencoded = `data:image/svg+xml,${encodeURIComponent(dockerlogobright)}`;
+	const dockerlogodimenconded = `data:image/svg+xml,${encodeURIComponent(dockerlogodim)}`;
+	const dockerlogowhiteencoded = 	`data:image/svg+xml,${encodeURIComponent(dockerlogowhite)}`;
 
 	let CPUvalue = $state(0);
     let RAMvalue = $state(0);
@@ -219,16 +226,29 @@ onDestroy(() => {
 			</div>
 			</div>
 		</div>
-        
+		<button type="button" class="group relative h-5 w-24 rounded-lg block p-0 border-none bg-transparent cursor-pointer" onclick={() => console.log("hello!")}>
+			<img 
+			class="absolute inset-0 w-full h-full object-cover opacity-100 transition-opacity duration-300 group-hover:opacity-0 pointer-events-none" 
+			src={dockerlogobrightencoded} 
+			alt="Docker logo"/>
+
+			<img 
+			class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100 pointer-events-none" 
+			src={dockerlogowhiteencoded} 
+			alt="Docker logo"/>
+
+			<span class="absolute -bottom-1.5 left-0 w-full h-0.5 bg-indigo-500 transition-transform duration-500 scale-x-0 group-hover:scale-x-100 origin-center"></span>
+
+		</button>
+
       </div>
-      <button id="btn" class="md:hidden p-2 text-white">Menu</button>
     </div>
   </div>
 </nav>
 
 <div class="pb-20"></div>
 
-<div class="grid grid-cols-5 max-w-400 mx-auto justify-center gap-4">
+<div class="grid grid-cols-5 max-w-440 mx-auto justify-center gap-4 pl-10 pr-10">
 
 	{#if isLoading}
 		<div class="shadow-lg max-w-80 aspect-square bg-zinc-500 animate-pulse rounded-lg justify-center items-center flex flex-col">
@@ -656,6 +676,9 @@ onDestroy(() => {
 
 
 </div>
+
+
+
 <h1 class = 'justify-center text-center font-semibold z-50  text-[hsl(0,0%,95%)] pt-20 '>&#8595; Graphs &#8595;</h1>
 <div class=" justify-center flex flex-wrap gap-4 pt-20 pb-32  overflow-scroll">
 
