@@ -181,14 +181,14 @@ if (Object.keys(serverCache1).length > 0 && Object.keys(serverCache2).length > 0
   ...serverCache1,
   ...serverCache2
  }
- serverCache1 = {}, serverCache2 = {};
  chartData = [...chartData, mergedPoint].slice(-60);
 
 } else {
   return;
 }
-
 }
+
+
 
 
 onMount(() => {
@@ -205,8 +205,7 @@ onMount(() => {
       if (serverManager.server1name == ""){
         serverManager.server1name = data.hostname;
       }
-
-
+      
         serverCache1 = {
         s1CpuValue : Number(data.cpuUsage ?? 0),
         s1RamValue: Number(data.ramUsage ?? 0),
