@@ -21,6 +21,7 @@
     left: 0;
     background: #000000;
     overflow: hidden;
+    z-index: -1;
 }
 
 .ball {
