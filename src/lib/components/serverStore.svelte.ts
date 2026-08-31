@@ -22,6 +22,9 @@ class ServerManager{
             this.currentServer = server;
         }
     }
+    get_container_stats(containerName: string){
+        return this.containers.find(container => container.name === containerName);
+    }
 }
 
 export const serverManager = new ServerManager;

@@ -205,7 +205,7 @@ onMount(() => {
       if (serverManager.server1name == ""){
         serverManager.server1name = data.hostname;
       }
-      
+
         serverCache1 = {
         s1CpuValue : Number(data.cpuUsage ?? 0),
         s1RamValue: Number(data.ramUsage ?? 0),
@@ -320,7 +320,7 @@ onMount(() => {
   </AreaChart> 
 </div>
 {/if}
-<!--RAM Graph Multi-->
+<!--Net Graph tx+rx-->
 {#if isLoading}
 <div class='w-4xl aspect-auto bg-zinc-500 p-5 rounded-lg items-center flex gap-4 flex-col text-white animate-pulse'></div>
 {:else}

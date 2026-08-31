@@ -94,11 +94,11 @@
 				<div class="bg-[hsl(0,0%,5%)] divide-y divide-gray-800 rounded-md shadow-lg border border-[hsl(0,0%,30%)]">
 				<div class="py-1">
 
-				<button type="button"
+				<a href="/containers/"
 				class="block text-left w-full px-4 py-2 border-white border-b text-sm text-indigo-400 hover:bg-[hsl(0,0%,10%)]"
 				>
 					View All
-				</button>
+				</a>
 
 				{#each serverManager.containers as container}
 				<a href="/containers/{container.name}">
