@@ -135,6 +135,7 @@ let Diskseries = $derived([
         data: diskData().free || [],
         color: 'hsl(132 32 55)'}, //colour green
 	]);
+  
 let netData = $derived(() =>{
   if (chartData.length == 0) return {server1 : [], server2 : []};
 

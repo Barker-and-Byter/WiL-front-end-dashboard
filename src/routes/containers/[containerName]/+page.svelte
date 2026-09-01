@@ -50,47 +50,6 @@ let netReadGraph = $state<GraphPoint[]>([]);
 let blockWriteGraph = $state<GraphPoint[]>([]);
 let blockReadGraph = $state<GraphPoint[]>([]);
 
-//goated parsing function :))))))))))
-function ParseIO (StatsIO: string){
-    let number = ""; let unit = "";
-
-    let blockWrite = (StatsIO.split("/")[0]).replace(/\s/g, "");
-    let blockRead = (StatsIO.split("/")[1]).replace(/\s/g, "");
-
-    [number, unit] =  blockWrite.split(/(?<=\d)(?=[a-zA-Z])/);
-    let writenumber = parseFloat(number);
-    let writeunit = unit;
-    [number, unit] = blockRead.split(/(?<=\d)(?=[a-zA-Z])/);
-    let readnumber = parseFloat(number);
-    let readunit = unit;
-
-    //convert to bytes based on the unit
-    switch (writeunit){
-        case "MB":
-            writenumber = writenumber * (1024 ** 2);
-            break;
-        case "kB":
-            writenumber = writenumber * (1024);
-            break;
-        default:
-            break;
-    }
-
-    //same thing for reading 
-    switch (readunit){
-        case "MB":
-            readnumber = readnumber * (1024 ** 2);
-            break;
-        case "kB":
-            readnumber = readnumber * (1024);
-            break;
-        default:
-            break;
-    }
-
-    return [writenumber, readnumber]
-
-}
 
 //resets all graphs and values used
 function reset(){
@@ -121,9 +80,9 @@ function startReceiving(eventsource: EventSource) {
             { time: 60, value: ramUsage ?? 0 }
             ];
         blockio = containerstats?.dock_block_io ?? "";
-        [blockRead, blockWrite] = ParseIO(blockio);
+        [blockRead, blockWrite] = serverManager.get_Parsed_IO(blockio);
         netio = containerstats?.dock_net_io ?? "";
-        [netRead, netWrite] = ParseIO(netio);
+        [netRead, netWrite] = serverManager.get_Parsed_IO(netio);
         const now = new Date();
 
         netWriteGraph.push({ time: now, value: netWrite });
@@ -173,13 +132,12 @@ let BlockSeries = $derived([
     }
 ]);
 
-
 $effect(() =>{
     if (!containername) return;
 
     reset();
 
-        if (eventsource) {
+    if (eventsource) {
         eventsource.close();
     }
 
@@ -201,8 +159,11 @@ $effect(() =>{
 
 
 </script>
+<div>
+<h1 class="text-8xl pt-10 font-black bg-clip-text text-transparent -drop-shadow-[0_4px_6px_rgba(0,0,0,0.4)]
+              [-webkit-text-stroke:1px_rgba(255,255,255,0.4)] text-center">{containername}</h1>
+<div class="pt-10 justify-center flex flex-wrap gap-8 overflow-scroll">
 
-<div class="pt-50 justify-center flex flex-wrap gap-8 overflow-scroll">
 <!--CPU usage graph-->
 	{#if isLoading}
 		<div class='w-4xl h-100 aspect-auto bg-zinc-500 p-5 rounded-lg items-center flex gap-4 flex-col text-white animate-pulse'></div>
@@ -361,4 +322,5 @@ $effect(() =>{
 </div>
 {/if}
 
+</div>
 </div>
