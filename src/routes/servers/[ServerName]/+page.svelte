@@ -73,7 +73,7 @@
 	);
 
 	// 
-
+	let eventsource: EventSource;
 	let totalNetwork = $state(0);
 
 	let isLoading = $state(true);
@@ -148,8 +148,8 @@
 	let server = $state('Servers');
 //function that resets any graphs
 function reset(){
-	if ( eventSource ) {
-		eventSource.close();
+	if ( eventsource ) {
+		eventsource.close();
 		isLoading = true;
 	}
 	CPUDataGraph = (
@@ -177,31 +177,31 @@ function reset(){
 	);
 }
 
-function serverChange(newServer: string) {
-	reset();
-	const port = newServer === 'Server 2' ? PUBLIC_EVENT_SOURCE_ONE : PUBLIC_EVENT_SOURCE_TWO;
-	server = newServer;
-	console.log(`connecting to server ${server} on event source ${port}`);
-	eventSource = new EventSource(`${port}/data-stream`);
-	startReceiving(eventSource);
-}
+$effect(() =>{
+    if (!serverManager.currentServer) return;
 
-// release version has to be setcapped before runnig (make a script J dog)
-onMount(() => {
-	eventSource = new EventSource(PUBLIC_EVENT_SOURCE_ONE + '/data-stream');   
-    startReceiving(eventSource); 
+    reset();
 
-	return () => {
-		if (eventSource){
-			eventSource.close();
-		}
-	}
+    if (eventsource) {
+        eventsource.close();
+    }
+
+    if (serverManager.server1name === serverManager.currentServer){
+        eventsource = new EventSource(PUBLIC_EVENT_SOURCE_ONE + "/data-stream");
+    } else if (serverManager.server2name === serverManager.currentServer){
+        eventsource = new EventSource(PUBLIC_EVENT_SOURCE_TWO + "/data-stream");
+    }
+
+    startReceiving(eventsource);
+
+
+    return (() => {
+        if (eventsource){
+            eventsource.close();
+        }
+    });
 });
-onDestroy(() => {
-	if (eventSource) {
-		eventSource.close();
-	}
-})
+
 </script>
 <!--Navigation bar-->
 <main>

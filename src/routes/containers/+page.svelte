@@ -104,6 +104,38 @@
         }))
     );
 
+    let blockInSeries = $derived(
+        containerGraph.map((container, index) => ({
+            key: container.name,
+            color: colors[index % colors.length],
+            data: container.data.map(d => ({ time: d.time, value: d.blockin }))
+        }))
+    );
+
+    let blockOutSeries = $derived(
+        containerGraph.map((container, index) => ({
+            key: container.name,
+            color: colors[index % colors.length],
+            data: container.data.map(d => ({ time: d.time, value: d.blockout }))
+        }))
+    );
+
+    let netInSeries = $derived(
+        containerGraph.map((container, index) => ({
+            key: container.name,
+            color: colors[index % colors.length],
+            data: container.data.map(d => ({ time: d.time, value: d.netIn }))
+        }))
+    );
+
+    let netOutSeries = $derived(
+        containerGraph.map((container, index) => ({
+            key: container.name,
+            color: colors[index % colors.length],
+            data: container.data.map(d => ({ time: d.time, value: d.netout }))
+        }))
+    );
+
     onMount (() => {
     if (eventsource) {
         eventsource.close();
@@ -132,7 +164,7 @@
 
 
 <main>
-<div class="flex justify-center flex-wrap pt-50 gap-8">
+<div class="flex justify-center flex-wrap pt-50 gap-8 overflow-scroll">
 <!--CPU %-->
     {#if isLoading}
     <div class='w-4xl h-100 aspect-auto bg-zinc-500 p-8 rounded-lg items-center flex gap-4 flex-col text-white animate-pulse'></div>
@@ -162,9 +194,9 @@
         })}
         padding={defaultChartPadding({ right: 10 })}
         height={300}
+        yDomain={[0, 100]}
         props = {{
         xAxis: { tickSpacing: 150}
-        
         }}
     >
         {#snippet marks({ context })}
@@ -214,6 +246,215 @@
         })}
         padding={defaultChartPadding({ right: 10 })}
         height={300}
+        yDomain={[0, 100]}
+        props = {{
+        xAxis: { tickSpacing: 150}
+        
+        }}
+    >
+        {#snippet marks({ context })}
+            <!-- Fixed: Using s.color directly since it's already computed in cpuSeries -->
+            {#each context.series.series as s (s.key)}
+                <LinearGradient
+                    stops={s.color
+                        ? [s.color, 'color-mix(in lch, ' + s.color + ' 10%, transparent)']
+                        : undefined}
+                    vertical
+                >
+                    {#snippet children({ gradient })}
+                        <Area seriesKey={s.key} line={{ stroke: s.color }} fill={gradient} fillOpacity={0.3} />
+                    {/snippet}
+                </LinearGradient>
+            {/each}
+        {/snippet}
+    </AreaChart> 
+    </div>
+    {/if}
+    <!--Block In graph-->
+    {#if isLoading}
+    <div class='w-4xl h-100 aspect-auto bg-zinc-500 p-8 rounded-lg items-center flex gap-4 flex-col text-white animate-pulse'></div>
+    {:else}
+    <div class='w-4xl aspect-auto backdrop-blur-md card-hover-animate border border-[hsl(0,0%,30%)] p-8 rounded-lg items-center flex gap-4 flex-col text-white/70'>
+    <h1 class="text-xl text-[hsl(0,0%,95%)]">Block Read (bytes)</h1>
+    <AreaChart
+        y="value"
+        x="time"
+        series={blockInSeries}
+        annotations={blockInSeries.flatMap((s) => {
+            const lastDataPoint = s.data?.[s.data.length - 1] ?? null;
+        if (!lastDataPoint) return [];
+            return {
+                type: 'point',
+                seriesKey: s.key,
+                label: s.key,
+                labelPlacement: 'right',
+                labelXOffset: 4,
+                x: lastDataPoint.time,
+                y: lastDataPoint.value,
+                props: {
+                    circle: { fill: s.color },
+                    label: { fill: s.color }
+                }
+            };
+        })}
+        padding={defaultChartPadding({ right: 10 })}
+        height={300}
+        props = {{
+        xAxis: { tickSpacing: 150}
+        
+        }}
+    >
+        {#snippet marks({ context })}
+            <!-- Fixed: Using s.color directly since it's already computed in cpuSeries -->
+            {#each context.series.series as s (s.key)}
+                <LinearGradient
+                    stops={s.color
+                        ? [s.color, 'color-mix(in lch, ' + s.color + ' 10%, transparent)']
+                        : undefined}
+                    vertical
+                >
+                    {#snippet children({ gradient })}
+                        <Area seriesKey={s.key} line={{ stroke: s.color }} fill={gradient} fillOpacity={0.3} />
+                    {/snippet}
+                </LinearGradient>
+            {/each}
+        {/snippet}
+    </AreaChart> 
+    </div>
+    {/if}
+    <!--Block Out graph-->
+    {#if isLoading}
+    <div class='w-4xl h-100 aspect-auto bg-zinc-500 p-8 rounded-lg items-center flex gap-4 flex-col text-white animate-pulse'></div>
+    {:else}
+    <div class='w-4xl aspect-auto backdrop-blur-md card-hover-animate border border-[hsl(0,0%,30%)] p-8 rounded-lg items-center flex gap-4 flex-col text-white/70'>
+    <h1 class="text-xl text-[hsl(0,0%,95%)]">Block Write (bytes)</h1>
+    <AreaChart
+        y="value"
+        x="time"
+        series={blockOutSeries}
+        annotations={blockOutSeries.flatMap((s) => {
+            const lastDataPoint = s.data?.[s.data.length - 1] ?? null;
+        if (!lastDataPoint) return [];
+            return {
+                type: 'point',
+                seriesKey: s.key,
+                label: s.key,
+                labelPlacement: 'right',
+                labelXOffset: 4,
+                x: lastDataPoint.time,
+                y: lastDataPoint.value,
+                props: {
+                    circle: { fill: s.color },
+                    label: { fill: s.color }
+                }
+            };
+        })}
+        padding={defaultChartPadding({ right: 10 })}
+        height={300}
+        props = {{
+        xAxis: { tickSpacing: 150}
+        
+        }}
+    >
+        {#snippet marks({ context })}
+            <!-- Fixed: Using s.color directly since it's already computed in cpuSeries -->
+            {#each context.series.series as s (s.key)}
+                <LinearGradient
+                    stops={s.color
+                        ? [s.color, 'color-mix(in lch, ' + s.color + ' 10%, transparent)']
+                        : undefined}
+                    vertical
+                >
+                    {#snippet children({ gradient })}
+                        <Area seriesKey={s.key} line={{ stroke: s.color }} fill={gradient} fillOpacity={0.3} />
+                    {/snippet}
+                </LinearGradient>
+            {/each}
+        {/snippet}
+    </AreaChart> 
+    </div>
+    {/if}
+        <!--Net In graph-->
+    {#if isLoading}
+    <div class='w-4xl h-100 aspect-auto bg-zinc-500 p-8 rounded-lg items-center flex gap-4 flex-col text-white animate-pulse'></div>
+    {:else}
+    <div class='w-4xl aspect-auto backdrop-blur-md card-hover-animate border border-[hsl(0,0%,30%)] p-8 rounded-lg items-center flex gap-4 flex-col text-white/70'>
+    <h1 class="text-xl text-[hsl(0,0%,95%)]">Net received (bytes)</h1>
+    <AreaChart
+        y="value"
+        x="time"
+        series={netInSeries}
+        annotations={netInSeries.flatMap((s) => {
+            const lastDataPoint = s.data?.[s.data.length - 1] ?? null;
+        if (!lastDataPoint) return [];
+            return {
+                type: 'point',
+                seriesKey: s.key,
+                label: s.key,
+                labelPlacement: 'right',
+                labelXOffset: 4,
+                x: lastDataPoint.time,
+                y: lastDataPoint.value,
+                props: {
+                    circle: { fill: s.color },
+                    label: { fill: s.color }
+                }
+            };
+        })}
+        padding={defaultChartPadding({ right: 10 })}
+        height={300}
+        props = {{
+        xAxis: { tickSpacing: 150}
+        
+        }}
+    >
+        {#snippet marks({ context })}
+            <!-- Fixed: Using s.color directly since it's already computed in cpuSeries -->
+            {#each context.series.series as s (s.key)}
+                <LinearGradient
+                    stops={s.color
+                        ? [s.color, 'color-mix(in lch, ' + s.color + ' 10%, transparent)']
+                        : undefined}
+                    vertical
+                >
+                    {#snippet children({ gradient })}
+                        <Area seriesKey={s.key} line={{ stroke: s.color }} fill={gradient} fillOpacity={0.3} />
+                    {/snippet}
+                </LinearGradient>
+            {/each}
+        {/snippet}
+    </AreaChart> 
+    </div>
+    {/if}
+        <!--Net In graph-->
+    {#if isLoading}
+    <div class='w-4xl h-100 aspect-auto bg-zinc-500 p-8 rounded-lg items-center flex gap-4 flex-col text-white animate-pulse'></div>
+    {:else}
+    <div class='w-4xl aspect-auto backdrop-blur-md card-hover-animate border border-[hsl(0,0%,30%)] p-8 rounded-lg items-center flex gap-4 flex-col text-white/70'>
+    <h1 class="text-xl text-[hsl(0,0%,95%)]">Net Transmitted (bytes)</h1>
+    <AreaChart
+        y="value"
+        x="time"
+        series={netOutSeries}
+        annotations={netOutSeries.flatMap((s) => {
+            const lastDataPoint = s.data?.[s.data.length - 1] ?? null;
+        if (!lastDataPoint) return [];
+            return {
+                type: 'point',
+                seriesKey: s.key,
+                label: s.key,
+                labelPlacement: 'right',
+                labelXOffset: 4,
+                x: lastDataPoint.time,
+                y: lastDataPoint.value,
+                props: {
+                    circle: { fill: s.color },
+                    label: { fill: s.color }
+                }
+            };
+        })}
+        padding={defaultChartPadding({ right: 10 })}
+        height={300}
         props = {{
         xAxis: { tickSpacing: 150}
         
@@ -238,4 +479,5 @@
     </div>
     {/if}
 </div>
+<padding>20</padding>
 </main>

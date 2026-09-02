@@ -160,7 +160,7 @@ $effect(() =>{
 
 </script>
 <div>
-<h1 class="text-8xl pt-10 font-black bg-clip-text text-transparent -drop-shadow-[0_4px_6px_rgba(0,0,0,0.4)]
+<h1 class="text-8xl pt-10 font-black bg-clip-text uppercase text-transparent -drop-shadow-[0_4px_6px_rgba(0,0,0,0.4)]
               [-webkit-text-stroke:1px_rgba(255,255,255,0.4)] text-center">{containername}</h1>
 <div class="pt-10 justify-center flex flex-wrap gap-8 overflow-scroll">
 
