@@ -8,8 +8,7 @@ import { PUBLIC_EVENT_SOURCE_ONE, PUBLIC_EVENT_SOURCE_TWO } from '$env/static/pu
 import { page } from '$app/state';
 import { serverManager } from '$lib/components/serverStore.svelte';
 import dockerlogowhite from '$lib/assets/docker-logo-white.svg?raw';
-
-	const dockerlogowhiteencoded = 	`data:image/svg+xml,${encodeURIComponent(dockerlogowhite)}`;
+const dockerlogowhiteencoded = 	`data:image/svg+xml,${encodeURIComponent(dockerlogowhite)}`;
 
 
 type DataPoint = {
@@ -56,7 +55,7 @@ let time = Date.now();
 let server1name = $state("");
 let server2name = $state("")
 let containers: Array<string> = [];
-
+let source: EventSource | null = null;
 
 const keys = ['s1CpuValue',
 's2CpuValue',
@@ -190,16 +189,20 @@ if (Object.keys(serverCache1).length > 0 && Object.keys(serverCache2).length > 0
 }
 
 
+async function init() {
+  const res = await fetch("/api/auth", {method: "POST"});
+  if (!res.ok){
+    status = "error";
+    return
+  }
 
+  connectStream();
+}
 
-onMount(() => {
-  serverManager.containers = [];
-  serverManager.currentServer = null;
-  isLoading = true;
-  let serverSource1: EventSource = new EventSource(PUBLIC_EVENT_SOURCE_ONE + "/data-stream");
-  let serverSource2: EventSource = new EventSource(PUBLIC_EVENT_SOURCE_TWO + '/data-stream');
-  
-  serverSource1.onmessage = (event) =>{
+function connectStream() {
+  source = new EventSource("/api/stream");
+
+    source.onmessage = (event) =>{
       const data = JSON.parse(event.data);
       const localTime = Date.now();
       const latency = data.timestamp - localTime;
@@ -224,6 +227,24 @@ onMount(() => {
       combineData();
 
   };
+  source.onerror = (err) => {
+    source.close();
+    return
+  }
+
+}
+
+
+onMount(() => {
+  serverManager.containers = [];
+  serverManager.currentServer = null;
+  isLoading = true;
+
+  init();
+
+  let serverSource2: EventSource = new EventSource(PUBLIC_EVENT_SOURCE_TWO + '/data-stream');
+  
+
   serverSource2.onmessage = (event) => {
         const data = JSON.parse(event.data);
 
@@ -251,7 +272,7 @@ onMount(() => {
   }
 
   return () => {
-    serverSource1.close();
+    source.close();
     serverSource2.close();
   }
 })

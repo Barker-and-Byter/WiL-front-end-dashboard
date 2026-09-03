@@ -83,7 +83,7 @@
 				alt="Docker logo"/>
 
 
-				{#if page.url.pathname.includes("/containers/")}
+				{#if page.url.pathname.includes("/containers")}
 					<span class="absolute -bottom-1.5 left-0 w-full h-0.5 bg-indigo-500 scale-x-100"></span>
 				{:else}
       			<span class="absolute -bottom-1.5 left-0 w-full h-0.5 bg-indigo-500 transition-transform duration-500 scale-x-0 group-hover:scale-x-100 origin-center"></span>

@@ -2,10 +2,13 @@ import adapter from '@sveltejs/adapter-auto';
 import { sveltekit } from '@sveltejs/kit/vite';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'vite';
+import mkcert from "vite-plugin-mkcert";
+
 
 export default defineConfig({
 	plugins: [
 		tailwindcss(),
+		mkcert(),
 		sveltekit({
 			compilerOptions: {
 				// Force runes mode for the project, except for libraries. Can be removed in svelte 6.
@@ -24,5 +27,8 @@ export default defineConfig({
 				remoteFunctions: true
 			}
 		})
-	]
+	],
+	server: {
+		
+	},
 });

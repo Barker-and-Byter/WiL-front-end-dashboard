@@ -177,6 +177,19 @@ function reset(){
 	);
 }
 
+async function init() {
+  const res = await fetch("/api/auth", {method: "POST"});
+  if (!res.ok){
+    status = "error";
+    return
+  }
+
+  eventsource = new EventSource("/api/stream");
+  startReceiving(eventsource);
+}
+
+
+
 $effect(() =>{
     if (!serverManager.currentServer) return;
 
@@ -187,13 +200,13 @@ $effect(() =>{
     }
 
     if (serverManager.server1name === serverManager.currentServer){
-        eventsource = new EventSource(PUBLIC_EVENT_SOURCE_ONE + "/data-stream");
+		init()
     } else if (serverManager.server2name === serverManager.currentServer){
         eventsource = new EventSource(PUBLIC_EVENT_SOURCE_TWO + "/data-stream");
-    }
+		startReceiving(eventsource);
+	}
 
-    startReceiving(eventsource);
-
+    
 
     return (() => {
         if (eventsource){
