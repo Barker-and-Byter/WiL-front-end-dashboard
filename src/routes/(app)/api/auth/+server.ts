@@ -23,6 +23,7 @@ export const POST: RequestHandler = async ({ fetch, cookies }) => {
 
     cookies.set("monitor_session_1", match[1], {
     path: "/",
+    secure: true,
     httpOnly: true,
     sameSite: "lax",
   });

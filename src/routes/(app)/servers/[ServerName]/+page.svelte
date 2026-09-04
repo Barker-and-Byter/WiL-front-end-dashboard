@@ -178,12 +178,6 @@ function reset(){
 }
 
 async function init() {
-  const res = await fetch("/api/auth", {method: "POST"});
-  if (!res.ok){
-    status = "error";
-    return
-  }
-
   eventsource = new EventSource("/api/stream");
   startReceiving(eventsource);
 }

@@ -132,6 +132,8 @@ let BlockSeries = $derived([
     }
 ]);
 
+
+
 $effect(() =>{
     if (!containername) return;
 
@@ -142,7 +144,7 @@ $effect(() =>{
     }
 
     if (serverManager.server1name === serverManager.currentServer){
-        eventsource = new EventSource(PUBLIC_EVENT_SOURCE_ONE + "/data-stream");
+       eventsource = new EventSource("/api/stream");
     } else if (serverManager.server2name === serverManager.currentServer){
         eventsource = new EventSource(PUBLIC_EVENT_SOURCE_TWO + "/data-stream");
     }

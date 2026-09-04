@@ -135,6 +135,8 @@
             data: container.data.map(d => ({ time: d.time, value: d.netout }))
         }))
     );
+    
+
 
     onMount (() => {
     if (eventsource) {
@@ -142,7 +144,7 @@
     }
 
     if (serverManager.server1name == serverManager.currentServer){
-        eventsource = new EventSource(PUBLIC_EVENT_SOURCE_ONE + "/data-stream");
+        eventsource = new EventSource("/api/stream");
     } else if (serverManager.server2name == serverManager.currentServer){
         eventsource = new EventSource(PUBLIC_EVENT_SOURCE_TWO + "/data-stream");
     }    

@@ -6,7 +6,18 @@ declare global {
 		// interface Locals {}
 		// interface PageData {}
 		// interface PageState {}
-		// interface Platform {}
+		interface Platform {
+			env: {
+				AUTH_GITHUB_ID: string;
+				AUTH_GITHUB_SECRET: string;
+				AUTH_SECRET: string;
+				AUTH_TRUST_HOST: boolean;
+			};
+			context?: {
+				waitUntil(promise: Promise<any>): void;
+			};
+			caches?: CacheStorage;
+		}
 	}
 }
 

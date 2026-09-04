@@ -2,7 +2,7 @@
 	import favicon from '$lib/assets/favicon.svg';
 	import Background from '$lib/components/Background.svelte';
 	let { children } = $props();
-	import "../app.css";
+	import "../../app.css";
 	import { page } from "$app/state";
 	import { serverManager } from '$lib/components/serverStore.svelte';	
 	import dockerlogobright from '$lib/assets/docker-logo-ocean-blue.svg?raw';
@@ -29,7 +29,7 @@
       <!-- Left: Logo, Center: Nav Links, Right: Action & Mobile -->
       <a href="/home" class="text-4xl text-left font-bold text-violet-600/95">Dashi Boardi</a>
       <div class="hidden md:flex space-x-8 items-center">
-	  <a href="/" class="group relative items-center transition duration-300 text-[hsl(0,0%,70%)] hover:text-indigo-400">Home
+	  <a href="/home" class="group relative items-center transition duration-300 text-[hsl(0,0%,70%)] hover:text-indigo-400">Home
       {#if page.url.pathname != '/'}
 		<span class="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-500 transition-transform duration-500 scale-x-0 group-hover:scale-x-100 origin-center"></span>
       {:else}

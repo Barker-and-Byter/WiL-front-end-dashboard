@@ -25,6 +25,7 @@
 		"vite-plugin-mkcert": "^2.1.0"
 	},
 	"dependencies": {
+		"@auth/sveltekit": "^1.11.3",
 		"@tailwindcss/vite": "^4.3.3",
 		"layerchart": "^2.0.4",
 		"skeleton": "^5.0.0",
