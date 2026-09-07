@@ -12,6 +12,8 @@ declare global {
 				AUTH_GITHUB_SECRET: string;
 				AUTH_SECRET: string;
 				AUTH_TRUST_HOST: boolean;
+				AUTH_GOOGLE_ID: string;
+				AUTH_GOOGLE_SECRET: string;
 			};
 			context?: {
 				waitUntil(promise: Promise<any>): void;
