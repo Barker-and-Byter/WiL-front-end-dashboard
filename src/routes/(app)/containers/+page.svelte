@@ -169,9 +169,9 @@
 <div class="flex justify-center flex-wrap pt-50 gap-8 overflow-scroll">
 <!--CPU %-->
     {#if isLoading}
-    <div class='w-4xl h-100 aspect-auto bg-zinc-500 p-8 rounded-lg items-center flex gap-4 flex-col text-white animate-pulse'></div>
+    <div class='w-4xl h-100 aspect-auto bg-zinc-500 p-8 rounded-3xl items-center flex gap-4 flex-col text-white animate-pulse'></div>
     {:else}
-    <div class='w-4xl aspect-auto backdrop-blur-md card-hover-animate border border-[hsl(0,0%,30%)] p-8 rounded-lg items-center flex gap-4 flex-col text-white/70'>
+    <div class='w-4xl aspect-auto backdrop-blur-md card-hover-animate border border-[hsl(0,0%,30%)] p-8 rounded-3xl items-center flex gap-4 flex-col text-white/70'>
     <h1 class="text-xl text-[hsl(0,0%,95%)]">CPU %</h1>
     <AreaChart
         y="value"
@@ -221,9 +221,9 @@
     {/if}
     <!--Ram %-->
     {#if isLoading}
-    <div class='w-4xl h-100 aspect-auto bg-zinc-500 p-8 rounded-lg items-center flex gap-4 flex-col text-white animate-pulse'></div>
+    <div class='w-4xl h-100 aspect-auto bg-zinc-500 p-8 rounded-3xl items-center flex gap-4 flex-col text-white animate-pulse'></div>
     {:else}
-    <div class='w-4xl aspect-auto backdrop-blur-md card-hover-animate border border-[hsl(0,0%,30%)] p-8 rounded-lg items-center flex gap-4 flex-col text-white/70'>
+    <div class='w-4xl aspect-auto backdrop-blur-md card-hover-animate border border-[hsl(0,0%,30%)] p-8 rounded-3xl items-center flex gap-4 flex-col text-white/70'>
     <h1 class="text-xl text-[hsl(0,0%,95%)]">RAM %</h1>
     <AreaChart
         y="value"
@@ -274,9 +274,9 @@
     {/if}
     <!--Block In graph-->
     {#if isLoading}
-    <div class='w-4xl h-100 aspect-auto bg-zinc-500 p-8 rounded-lg items-center flex gap-4 flex-col text-white animate-pulse'></div>
+    <div class='w-4xl h-100 aspect-auto bg-zinc-500 p-8 rounded-3xl items-center flex gap-4 flex-col text-white animate-pulse'></div>
     {:else}
-    <div class='w-4xl aspect-auto backdrop-blur-md card-hover-animate border border-[hsl(0,0%,30%)] p-8 rounded-lg items-center flex gap-4 flex-col text-white/70'>
+    <div class='w-4xl aspect-auto backdrop-blur-md card-hover-animate border border-[hsl(0,0%,30%)] p-8 rounded-3xl items-center flex gap-4 flex-col text-white/70'>
     <h1 class="text-xl text-[hsl(0,0%,95%)]">Block Read (bytes)</h1>
     <AreaChart
         y="value"
@@ -326,9 +326,9 @@
     {/if}
     <!--Block Out graph-->
     {#if isLoading}
-    <div class='w-4xl h-100 aspect-auto bg-zinc-500 p-8 rounded-lg items-center flex gap-4 flex-col text-white animate-pulse'></div>
+    <div class='w-4xl h-100 aspect-auto bg-zinc-500 p-8 rounded-3xl items-center flex gap-4 flex-col text-white animate-pulse'></div>
     {:else}
-    <div class='w-4xl aspect-auto backdrop-blur-md card-hover-animate border border-[hsl(0,0%,30%)] p-8 rounded-lg items-center flex gap-4 flex-col text-white/70'>
+    <div class='w-4xl aspect-auto backdrop-blur-md card-hover-animate border border-[hsl(0,0%,30%)] p-8 rounded-3xl items-center flex gap-4 flex-col text-white/70'>
     <h1 class="text-xl text-[hsl(0,0%,95%)]">Block Write (bytes)</h1>
     <AreaChart
         y="value"
@@ -378,9 +378,9 @@
     {/if}
         <!--Net In graph-->
     {#if isLoading}
-    <div class='w-4xl h-100 aspect-auto bg-zinc-500 p-8 rounded-lg items-center flex gap-4 flex-col text-white animate-pulse'></div>
+    <div class='w-4xl h-100 aspect-auto bg-zinc-500 p-8 rounded-3xl items-center flex gap-4 flex-col text-white animate-pulse'></div>
     {:else}
-    <div class='w-4xl aspect-auto backdrop-blur-md card-hover-animate border border-[hsl(0,0%,30%)] p-8 rounded-lg items-center flex gap-4 flex-col text-white/70'>
+    <div class='w-4xl aspect-auto backdrop-blur-md card-hover-animate border border-[hsl(0,0%,30%)] p-8 rounded-3xl items-center flex gap-4 flex-col text-white/70'>
     <h1 class="text-xl text-[hsl(0,0%,95%)]">Net received (bytes)</h1>
     <AreaChart
         y="value"
@@ -430,9 +430,9 @@
     {/if}
         <!--Net In graph-->
     {#if isLoading}
-    <div class='w-4xl h-100 aspect-auto bg-zinc-500 p-8 rounded-lg items-center flex gap-4 flex-col text-white animate-pulse'></div>
+    <div class='w-4xl h-100 aspect-auto bg-zinc-500 p-8 rounded-3xl items-center flex gap-4 flex-col text-white animate-pulse'></div>
     {:else}
-    <div class='w-4xl aspect-auto backdrop-blur-md card-hover-animate border border-[hsl(0,0%,30%)] p-8 rounded-lg items-center flex gap-4 flex-col text-white/70'>
+    <div class='w-4xl aspect-auto backdrop-blur-md card-hover-animate border border-[hsl(0,0%,30%)] p-8 rounded-3xl items-center flex gap-4 flex-col text-white/70'>
     <h1 class="text-xl text-[hsl(0,0%,95%)]">Net Transmitted (bytes)</h1>
     <AreaChart
         y="value"

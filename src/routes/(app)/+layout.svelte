@@ -30,7 +30,7 @@
       <a href="/home" class="text-4xl text-left font-bold text-violet-600/95">Dashi Boardi</a>
       <div class="hidden md:flex space-x-8 items-center">
 	  <a href="/home" class="group relative items-center transition duration-300 text-[hsl(0,0%,70%)] hover:text-indigo-400">Home
-      {#if page.url.pathname != '/'}
+      {#if page.url.pathname != '/home'}
 		<span class="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-500 transition-transform duration-500 scale-x-0 group-hover:scale-x-100 origin-center"></span>
       {:else}
       <span class="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-500 scale-x-100"></span>

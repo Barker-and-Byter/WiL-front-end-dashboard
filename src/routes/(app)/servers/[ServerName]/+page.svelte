@@ -220,7 +220,7 @@ $effect(() =>{
 <div class="grid grid-cols-5 max-w-440 mx-auto justify-center gap-4 pl-10 pr-10">
 
 	{#if isLoading}
-		<div class="shadow-lg max-w-80 aspect-square bg-zinc-500 animate-pulse rounded-lg justify-center items-center flex flex-col">
+		<div class="shadow-lg max-w-80 aspect-square bg-zinc-500 animate-pulse rounded-3xl justify-center items-center flex flex-col">
 		<span class="text-sm  text-white/0 bg-zinc-300 animate-pulse"> CPU usage%</span>
 		    <div class="relative w-3/5 h-3/5 flex items-center justify-center">
                 <svg class="w-full h-full animate-pulse text-zinc-300" viewBox="0 0 100 100">
@@ -237,7 +237,7 @@ $effect(() =>{
             </div>
         </div>
 	{:else}
-	<div class="shadow-lg max-w-80 backdrop-blur-lg aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-lg justify-center items-center flex flex-col">
+	<div class="shadow-lg max-w-80 backdrop-blur-lg aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-3xl justify-center items-center flex flex-col">
 	<span class="text-xl sm:text-lg text-[hsl(0,0%,95%)]"> CPU usage%</span>
 	<div class="max-h-50 min-h-40 w-full flex-1">
 	<Chart padding={20}>
@@ -278,7 +278,7 @@ $effect(() =>{
 	{/if}
 	<!--Second chart for RAM usage-->
 	{#if isLoading}
-		<div class="shadow-lg max-w-80 aspect-square bg-zinc-500 animate-pulse rounded-lg  items-center justify-center flex flex-col">
+		<div class="shadow-lg max-w-80 aspect-square bg-zinc-500 animate-pulse rounded-3xl items-center justify-center flex flex-col">
 		<span class="text-sm  text-white/0 bg-zinc-300 animate-pulse"> CPU usage%</span>
 		    <div class="relative w-3/5 h-3/5 flex items-center justify-center">
                 <svg class="w-full h-full animate-pulse text-zinc-300" viewBox="0 0 100 100">
@@ -295,7 +295,7 @@ $effect(() =>{
             </div>
         </div>
 	{:else}
-	<div class="max-w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-lg items-center justify-center flex flex-col ">
+	<div class="max-w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-3xl items-center justify-center flex flex-col ">
 		<span class="text-xl sm:text-lg text-white"> RAM usage%</span>
 	<div class="max-h-50 min-h-40 w-full flex-1">
 	<Chart padding={20}>
@@ -336,7 +336,7 @@ $effect(() =>{
 	{/if}
 	<!--Third Gauge for Storage Usage-->
 	{#if isLoading}
-		<div class="shadow-lg max-w-80 aspect-square bg-zinc-500 animate-pulse rounded-lg  items-center justify-center flex flex-col">
+		<div class="shadow-lg max-w-80 aspect-square bg-zinc-500 animate-pulse rounded-3xl  items-center justify-center flex flex-col">
 		<span class="text-sm text-white/0 bg-zinc-300 animate-pulse"> CPU usage%</span>
 		    <div class="relative w-3/5 h-3/5 flex items-center justify-center">
                 <svg class="w-full h-full animate-pulse text-zinc-300" viewBox="0 0 100 100">
@@ -353,7 +353,7 @@ $effect(() =>{
             </div>
         </div>
 	{:else}
-	<div class="max-w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-lg items-center justify-center flex flex-col ">
+	<div class="max-w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-3xl items-center justify-center flex flex-col ">
 		<span class="text-xl sm:text-sm  text-white"> Storage Usage%</span>
 	<div class="max-h-50 w-full min-h-40 flex-1">
 	<Chart padding={20}>
@@ -394,7 +394,7 @@ $effect(() =>{
 	{/if}
 	<!--Piechart for storage-->
 	{#if isLoading}
-	<div class="shadow-lg max-w-80 aspect-square bg-zinc-500 animate-pulse rounded-lg  items-center justify-center flex flex-col">
+	<div class="shadow-lg max-w-80 aspect-square bg-zinc-500 animate-pulse rounded-3xl  items-center justify-center flex flex-col">
 		<span class="text-xl sm:text-sm text-white/0 bg-zinc-300 animate-pulse"> CPU usage%</span>
 		    <div class="relative w-3/5 h-3/5 flex items-center justify-center">
                 <svg class="w-full h-full animate-pulse text-zinc-300" viewBox="0 0 100 100">
@@ -412,7 +412,7 @@ $effect(() =>{
             </div>
         </div>
 	{:else}
-	<div class='max-w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-lg items-center justify-center flex flex-col '>
+	<div class='max-w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-3xl items-center justify-center flex flex-col '>
 	<h1 class="text-xl sm:text-sm  text-[hsl(0,0%,95%)] pb-6"> Storage Distribution</h1>
 	<div class="max-h-60 flex-1 w-full min-h-30">
 		<PieChart
@@ -448,7 +448,7 @@ $effect(() =>{
 	{/if}
 		<!--Ram piechart-->
 	{#if isLoading}
-		<div class="shadow-lg max-w-80 aspect-square bg-zinc-500 animate-pulse rounded-lg  items-center justify-center flex flex-col">
+		<div class="shadow-lg max-w-80 aspect-square bg-zinc-500 animate-pulse rounded-3xl  items-center justify-center flex flex-col">
 		<span class="text-sm text-white/0 bg-zinc-300 animate-pulse"> CPU usage%</span>
 		    <div class="relative w-3/5 h-3/5 flex items-center justify-center">
                 <svg class="w-full h-full animate-pulse text-zinc-300" viewBox="0 0 100 100">
@@ -466,7 +466,7 @@ $effect(() =>{
             </div>
         </div>
 	{:else}
-	<div class='max-w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-lg items-center justify-center flex flex-col '>
+	<div class='max-w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-3xl items-center justify-center flex flex-col '>
 	<span class="text-sm  text-white pb-6"> RAM Distribution</span>
 	<div class="max-h-60 w-full min-h-30 flex-1">
 		<PieChart
@@ -504,12 +504,12 @@ $effect(() =>{
 
 	<!--Latency-->
 	{#if isLoading}
-		<div class="shadow-lg max-w-80 w-full aspect-square bg-zinc-500 animate-pulse rounded-lg space-y-[25%] items-center justify-center flex flex-col">
+		<div class="shadow-lg max-w-80 w-full aspect-square bg-zinc-500 animate-pulse rounded-3xl space-y-[25%] items-center justify-center flex flex-col">
 		<span class="block w-[60%] h-[10%] bg-zinc-300 animate-pulse place-content-start"></span>
 		<span class="block w-[75%] h-[20%] bg-zinc-300 animate-pulse"></span>
 	</div>
 	{:else}
-	<div class='max-w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-lg items-center justify-center flex flex-col '>
+	<div class='max-w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-3xl items-center justify-center flex flex-col '>
 		<span class="text-lg xl:text-xl sm:text-sm  text-white pb-6"> Latency</span>
 	<div class="max-h-50 min-h-30 w-full flex-1">
 	<Chart padding={20}>
@@ -532,12 +532,12 @@ $effect(() =>{
 
 	<!--Upload speed raw readout-->
 	{#if isLoading}
-		<div class="shadow-lg max-w-80 aspect-square bg-zinc-500 animate-pulse rounded-lg space-y-[25%] items-center justify-center flex flex-col">
+		<div class="shadow-lg max-w-80 aspect-square bg-zinc-500 animate-pulse rounded-3xl space-y-[25%] items-center justify-center flex flex-col">
 		<span class="block w-[60%] h-[10%] bg-zinc-300 animate-pulse place-content-start"></span>
 		<span class="block w-[75%] h-[20%] bg-zinc-300 animate-pulse"></span>
 	</div>
 	{:else}
-	<div class='max-w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-lg items-center justify-center flex flex-col '>
+	<div class='max-w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-3xl items-center justify-center flex flex-col '>
 		<h1 class="text-lg xl:text-xl sm:text-sm  text-[hsl(0,0%,95%)] pb-6"> Upload speed</h1>
 		<div class="max-h-50 w-full flex-1 min-h-30">
 		<Chart padding={20}>
@@ -560,12 +560,12 @@ $effect(() =>{
 
 	<!--Download speed raw readout-->
 	{#if isLoading}
-		<div class="shadow-lg max-w-80 aspect-square bg-zinc-500 animate-pulse rounded-lg space-y-[25%] items-center justify-center flex flex-col">
+		<div class="shadow-lg max-w-80 aspect-square bg-zinc-500 animate-pulse rounded-3xl space-y-[25%] items-center justify-center flex flex-col">
 		<span class="block w-[60%] h-[10%] bg-zinc-300 animate-pulse place-content-start"></span>
 		<span class="block w-[75%] h-[20%] bg-zinc-300 animate-pulse"></span>
 	</div>
 	{:else}
-	<div class='max-w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-lg items-center justify-center flex flex-col '>
+	<div class='max-w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-3xl items-center justify-center flex flex-col '>
 		<h1 class="text-lg sm:text-sm xl:text-xl  text-white pb-6"> Download speed</h1>
 		<div class="max-h-50 w-full flex-1 min-h-30">
 
@@ -588,12 +588,12 @@ $effect(() =>{
 	{/if}
 	<!--Disk read speed raw readout-->
 	{#if isLoading}
-		<div class="shadow-lg max-w-80 aspect-square bg-zinc-500 animate-pulse rounded-lg space-y-[25%] items-center justify-center flex flex-col">
+		<div class="shadow-lg max-w-80 aspect-square bg-zinc-500 animate-pulse rounded-3xl space-y-[25%] items-center justify-center flex flex-col">
 		<span class="block w-[60%] h-[10%] bg-zinc-300 animate-pulse place-content-start"></span>
 		<span class="block w-[75%] h-[20%] bg-zinc-300 animate-pulse"></span>
 	</div>
 	{:else}
-	<div class='max-w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-lg items-center justify-center flex flex-col '>
+	<div class='max-w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-3xl items-center justify-center flex flex-col '>
 		<h1 class="text-lg sm:text-sm xl:text-xl  text-white pb-6"> Disk Read Speed</h1>
 		<div class="max-h-50 w-full flex-1 min-h-30">
 
@@ -616,12 +616,12 @@ $effect(() =>{
 	{/if}
 	<!--Disk write speed raw readout-->
 	{#if isLoading}
-		<div class="shadow-lg max-w-80 aspect-square bg-zinc-500 animate-pulse rounded-lg space-y-[25%] items-center justify-center flex flex-col">
+		<div class="shadow-lg max-w-80 aspect-square bg-zinc-500 animate-pulse rounded-3xl space-y-[25%] items-center justify-center flex flex-col">
 		<span class="block w-[60%] h-[10%] bg-zinc-300 animate-pulse place-content-start"></span>
 		<span class="block w-[75%] h-[20%] bg-zinc-300 animate-pulse"></span>
 	</div>
 	{:else}
-	<div class='max-w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-lg items-center justify-center flex flex-col '>
+	<div class='max-w-80 aspect-square card-hover-animate border border-[hsl(0,0%,30%)] rounded-3xl items-center justify-center flex flex-col '>
 		<h1 class="text-lg sm:text-sm xl:text-xl  text-white pb-6"> Disk Write Speed</h1>
 		<div class="max-h-50 w-full flex-1 min-h-30">
 
@@ -653,9 +653,9 @@ $effect(() =>{
 
 <!--CPU usage graph-->
 	{#if isLoading}
-		<div class='w-4xl h-100 aspect-auto bg-zinc-500 p-5 rounded-lg items-center flex gap-4 flex-col text-white animate-pulse'></div>
+		<div class='w-4xl h-100 aspect-auto bg-zinc-500 p-5 rounded-3xl items-center flex gap-4 flex-col text-white animate-pulse'></div>
 	{:else}
-	<div class='w-4xl aspect-auto card-hover-animate transition-colors duration-500 ease-in-out border border-[hsl(0,0%,35%)] p-5 rounded-lg items-center flex gap-4 flex-col text-[hsl(0,0%,95%)]'>
+	<div class='w-4xl aspect-auto card-hover-animate transition-colors duration-500 ease-in-out border border-[hsl(0,0%,35%)] p-5 rounded-3xl items-center flex gap-4 flex-col text-[hsl(0,0%,95%)]'>
 		<span class="text-xl text-[hsl(0,0%,95%)]">CPU %</span>
 		<AreaChart
 			data={CPUDataGraph}
@@ -678,10 +678,10 @@ $effect(() =>{
 	</div>
 	{/if}
 	{#if isLoading}
-		<div class='w-4xl h-100 aspect-auto bg-zinc-500 p-5 rounded-lg items-center flex gap-4 flex-col text-white animate-pulse'></div>
+		<div class='w-4xl h-100 aspect-auto bg-zinc-500 p-5 rounded-3xl items-center flex gap-4 flex-col text-white animate-pulse'></div>
 	{:else}
 <!--RAM Usage Graph-->
-	<div class='w-4xl aspect-auto card-hover-animate border border-[hsl(0,0%,35%)] p-5 rounded-lg items-center flex gap-4 flex-col text-[hsl(0,0%,95%)]'>
+	<div class='w-4xl aspect-auto card-hover-animate border border-[hsl(0,0%,35%)] p-5 rounded-3xl items-center flex gap-4 flex-col text-[hsl(0,0%,95%)]'>
 		<span class="text-xl text-[hsl(0,0%,95%)]">RAM %</span>
 		<AreaChart
 			data={RAMDataGraph}
@@ -706,9 +706,9 @@ $effect(() =>{
 	{/if}
 	<!--Network Traffic (Rx)-->
 	{#if isLoading}
-		<div class='w-4xl h-100 aspect-auto bg-zinc-500 p-5 rounded-lg items-center flex gap-4 flex-col text-white animate-pulse'></div>
+		<div class='w-4xl h-100 aspect-auto bg-zinc-500 p-5 rounded-3xl items-center flex gap-4 flex-col text-white animate-pulse'></div>
 	{:else}
-	<div class='w-4xl aspect-auto card-hover-animate border border-[hsl(0,0%,35%)] p-5 rounded-lg items-center flex gap-4 flex-col text-[hsl(0,0%,95%)]'>
+	<div class='w-4xl aspect-auto card-hover-animate border border-[hsl(0,0%,35%)] p-5 rounded-3xl items-center flex gap-4 flex-col text-[hsl(0,0%,95%)]'>
 		<span class="text-xl text-[hsl(0,0%,95%)]">Network traffic (rx)</span>
 		<AreaChart
 			data={downDataGraph}
@@ -732,9 +732,9 @@ $effect(() =>{
 	{/if}
 		<!--Network Traffic (Tx)-->
 	{#if isLoading}
-		<div class='w-4xl h-100 aspect-auto bg-zinc-500 p-5 rounded-lg items-center flex gap-4 flex-col text-white animate-pulse'></div>
+		<div class='w-4xl h-100 aspect-auto bg-zinc-500 p-5 rounded-3xl items-center flex gap-4 flex-col text-white animate-pulse'></div>
 	{:else}
-	<div class='w-4xl aspect-auto card-hover-animate border border-[hsl(0,0%,35%)] p-5 rounded-lg items-center flex gap-4 flex-col text-[hsl(0,0%,95%)]'>
+	<div class='w-4xl aspect-auto card-hover-animate border border-[hsl(0,0%,35%)] p-5 rounded-3xl items-center flex gap-4 flex-col text-[hsl(0,0%,95%)]'>
 		<span class="text-xl text-[hsl(0,0%,95%)]">Network traffic (Tx)</span>
 		<AreaChart
 			data={upDataGraph}
@@ -759,9 +759,9 @@ $effect(() =>{
 	{/if}
 		<!--disk Kb/s-->
 		{#if isLoading}
-		<div class='w-4xl h-100 aspect-auto bg-zinc-500 p-5 rounded-lg items-center flex gap-4 flex-col text-white animate-pulse'></div>
+		<div class='w-4xl h-100 aspect-auto bg-zinc-500 p-5 rounded-3xl items-center flex gap-4 flex-col text-white animate-pulse'></div>
 		{:else}
-	<div class='w-4xl aspect-auto card-hover-animate border border-[hsl(0,0%,35%)] p-5 rounded-lg items-center flex gap-4 flex-col text-[hsl(0,0%,95%)]'>
+	<div class='w-4xl aspect-auto card-hover-animate border border-[hsl(0,0%,35%)] p-5 rounded-3xl items-center flex gap-4 flex-col text-[hsl(0,0%,95%)]'>
 		<span class="text-xl text-[hsl(0,0%,95%)]">Disk Write speed (Kb/s)</span>
 		<AreaChart
 			data={writeDataGraph}
@@ -786,9 +786,9 @@ $effect(() =>{
 	{/if}
 		<!--Read Kb/s-->
 	{#if isLoading}
-		<div class='w-4xl h-100 aspect-auto bg-zinc-500 p-5 rounded-lg items-center flex gap-4 flex-col text-white animate-pulse'></div>
+		<div class='w-4xl h-100 aspect-auto bg-zinc-500 p-5 rounded-3xl items-center flex gap-4 flex-col text-white animate-pulse'></div>
 	{:else}
-	<div class='w-4xl aspect-auto card-hover-animate border border-[hsl(0,0%,35%)] p-5 rounded-lg items-center flex gap-4 flex-col text-[hsl(0,0%,95%)]'>
+	<div class='w-4xl aspect-auto card-hover-animate border border-[hsl(0,0%,35%)] p-5 rounded-3xl items-center flex gap-4 flex-col text-[hsl(0,0%,95%)]'>
 		<span class="text-xl text-[hsl(0,0%,95%)]">Disk Read Speed (Kb/s)</span>
 		<AreaChart
 			data={readDataGraph}

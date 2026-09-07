@@ -168,9 +168,9 @@ $effect(() =>{
 
 <!--CPU usage graph-->
 	{#if isLoading}
-		<div class='w-4xl h-100 aspect-auto bg-zinc-500 p-5 rounded-lg items-center flex gap-4 flex-col text-white animate-pulse'></div>
+		<div class='w-4xl h-100 aspect-auto bg-zinc-500 p-5 rounded-3xl items-center flex gap-4 flex-col text-white animate-pulse'></div>
 	{:else}
-	<div class='w-4xl aspect-auto card-hover-animate transition-colors duration-500 ease-in-out border border-[hsl(0,0%,35%)] p-5 rounded-lg items-center flex gap-4 flex-col text-[hsl(0,0%,95%)]'>
+	<div class='w-4xl aspect-auto card-hover-animate transition-colors duration-500 ease-in-out border border-[hsl(0,0%,35%)] p-5 rounded-3xl items-center flex gap-4 flex-col text-[hsl(0,0%,95%)]'>
 		<span class="text-xl text-[hsl(0,0%,95%)]">CPU %</span>
 		<AreaChart
 			data={CPUDataGraph}
@@ -193,10 +193,10 @@ $effect(() =>{
 	</div>
 	{/if}
 	{#if isLoading}
-		<div class='w-4xl h-100 aspect-auto bg-zinc-500 p-5 rounded-lg items-center flex gap-4 flex-col text-white animate-pulse'></div>
+		<div class='w-4xl h-100 aspect-auto bg-zinc-500 p-5 rounded-3xl items-center flex gap-4 flex-col text-white animate-pulse'></div>
 	{:else}
 <!--RAM Usage Graph-->
-	<div class='w-4xl aspect-auto card-hover-animate border border-[hsl(0,0%,35%)] p-5 rounded-lg items-center flex gap-4 flex-col text-[hsl(0,0%,95%)]'>
+	<div class='w-4xl aspect-auto card-hover-animate border border-[hsl(0,0%,35%)] p-5 rounded-3xl items-center flex gap-4 flex-col text-[hsl(0,0%,95%)]'>
 		<span class="text-xl text-[hsl(0,0%,95%)]">RAM %</span>
 		<AreaChart
 			data={RAMDataGraph}
@@ -221,9 +221,9 @@ $effect(() =>{
 	{/if}
 <!--Block io graph-->
 {#if isLoading}
-<div class='w-4xl h-100 aspect-auto bg-zinc-500 p-5 rounded-lg items-center flex gap-4 flex-col text-white animate-pulse'></div>
+<div class='w-4xl h-100 aspect-auto bg-zinc-500 p-5 rounded-3xl items-center flex gap-4 flex-col text-white animate-pulse'></div>
 {:else}
-<div class='w-4xl aspect-auto backdrop-blur-md card-hover-animate border border-[hsl(0,0%,30%)] p-5 rounded-lg items-center flex gap-4 flex-col text-white/70'>
+<div class='w-4xl aspect-auto backdrop-blur-md card-hover-animate border border-[hsl(0,0%,30%)] p-5 rounded-3xl items-center flex gap-4 flex-col text-white/70'>
 <h1 class="text-xl text-[hsl(0,0%,95%)]">Block I/O (bytes)</h1>
   <AreaChart
     y="value"
@@ -273,9 +273,9 @@ $effect(() =>{
 {/if}
 <!--Network I/O graph-->
 {#if isLoading}
-<div class='w-4xl h-100 aspect-auto bg-zinc-500 p-5 rounded-lg items-center flex gap-4 flex-col text-white animate-pulse'></div>
+<div class='w-4xl h-100 aspect-auto bg-zinc-500 p-5 rounded-3xl items-center flex gap-4 flex-col text-white animate-pulse'></div>
 {:else}
-<div class='w-4xl aspect-auto backdrop-blur-md card-hover-animate border border-[hsl(0,0%,30%)] p-5 rounded-lg items-center flex gap-4 flex-col text-white/70'>
+<div class='w-4xl aspect-auto backdrop-blur-md card-hover-animate border border-[hsl(0,0%,30%)] p-5 rounded-3xl items-center flex gap-4 flex-col text-white/70'>
 <h1 class="text-xl text-[hsl(0,0%,95%)]">Network I/O (bytes)</h1>
   <AreaChart
     y="value"

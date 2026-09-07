@@ -292,9 +292,9 @@ onMount(() => {
 <h1 class="text-white size-xl justify-center text-center pb-10">Multi-Server Dashboard</h1>
 <div class="flex flex-wrap gap-12 justify-center overflow-scroll pb-10">
 {#if isLoading}
-<div class='w-4xl h-100 aspect-auto bg-zinc-500 p-5 rounded-lg items-center flex gap-4 flex-col text-white animate-pulse'></div>
+<div class='w-4xl h-100 aspect-auto bg-zinc-500 p-5 rounded-3xl items-center flex gap-4 flex-col text-white animate-pulse'></div>
 {:else}
-<div class='w-4xl aspect-auto backdrop-blur-md card-hover-animate border border-[hsl(0,0%,30%)] p-5 rounded-lg gap-4 items-center flex flex-col text-white'>
+<div class='w-4xl aspect-auto backdrop-blur-md card-hover-animate border border-[hsl(0,0%,30%)] p-5 rounded-3xl gap-4 items-center flex flex-col text-white'>
 <h1 class="text-xl text-[hsl(0,0%,95%)]">CPU %</h1>
   <AreaChart
     y="value"
@@ -344,9 +344,9 @@ onMount(() => {
 {/if}
 <!--Net Graph tx+rx-->
 {#if isLoading}
-<div class='w-4xl aspect-auto bg-zinc-500 p-5 rounded-lg items-center flex gap-4 flex-col text-white animate-pulse'></div>
+<div class='w-4xl aspect-auto bg-zinc-500 p-5 rounded-3xl items-center flex gap-4 flex-col text-white animate-pulse'></div>
 {:else}
-<div class='w-4xl h-100 aspect-auto backdrop-blur-md card-hover-animate border border-[hsl(0,0%,30%)] p-5 rounded-lg items-center flex gap-4 flex-col text-white/70'>
+<div class='w-4xl h-100 aspect-auto backdrop-blur-md card-hover-animate border border-[hsl(0,0%,30%)] p-5 rounded-3xl items-center flex gap-4 flex-col text-white/70'>
 <h1 class="text-xl text-[hsl(0,0%,95%)]">RAM %</h1>
   <AreaChart
     y="value"
@@ -397,9 +397,9 @@ onMount(() => {
 {/if}
 <!--Combined Net Usage Mb/s -->
 {#if isLoading}
-<div class='w-4xl h-100 aspect-auto bg-zinc-500 p-5 rounded-lg items-center flex gap-4 flex-col text-white animate-pulse'></div>
+<div class='w-4xl h-100 aspect-auto bg-zinc-500 p-5 rounded-3xl items-center flex gap-4 flex-col text-white animate-pulse'></div>
 {:else}
-<div class='w-4xl h-100 aspect-auto backdrop-blur-md card-hover-animate border border-[hsl(0,0%,30%)] p-5 rounded-lg items-center flex gap-4 flex-col text-white/70'>
+<div class='w-4xl h-100 aspect-auto backdrop-blur-md card-hover-animate border border-[hsl(0,0%,30%)] p-5 rounded-3xl items-center flex gap-4 flex-col text-white/70'>
 <h1 class="text-xl text-[hsl(0,0%,95%)]">Net Usage tx+rx (KB/s)</h1>
   <AreaChart
     y="value"
@@ -449,9 +449,9 @@ onMount(() => {
 {/if}
 <!--Combined Disk Usage Kb/s (fix this jared my fella) -->
 {#if isLoading}
-<div class='w-4xl aspect-auto bg-zinc-500 p-5 rounded-lg items-center flex gap-4 flex-col text-white animate-pulse'></div>
+<div class='w-4xl aspect-auto bg-zinc-500 p-5 rounded-3xl items-center flex gap-4 flex-col text-white animate-pulse'></div>
 {:else}
-<div class='w-4xl h-100 aspect-auto backdrop-blur-md card-hover-animate border border-[hsl(0,0%,30%)] p-5 rounded-lg items-center flex gap-4 flex-col text-white/70'>
+<div class='w-4xl h-100 aspect-auto backdrop-blur-md card-hover-animate border border-[hsl(0,0%,30%)] p-5 rounded-3xl items-center flex gap-4 flex-col text-white/70'>
 <h1 class="text-xl text-[hsl(0,0%,95%)]">Disk Usage Combined (KB/s)</h1>
   <AreaChart
     y="value"
@@ -501,9 +501,9 @@ onMount(() => {
 {/if}
 <!--Disk Usage Per Node GB-->
 {#if isLoading}
-<div class='w-4xl h-100 aspect-auto bg-zinc-500 p-5 rounded-lg items-center flex gap-4 flex-col text-white animate-pulse'></div>
+<div class='w-4xl h-100 aspect-auto bg-zinc-500 p-5 rounded-3xl items-center flex gap-4 flex-col text-white animate-pulse'></div>
 {:else}
-<div class='w-4xl aspect-auto blackdrop-blur-md card-hover-animate border border-[hsl(0,0%,30%)]   p-5 rounded-lg items-center flex gap-4 flex-col text-white'>
+<div class='w-4xl aspect-auto blackdrop-blur-md card-hover-animate border border-[hsl(0,0%,30%)]   p-5 rounded-3xl items-center flex gap-4 flex-col text-white'>
 <h1 class="text-xl text-[hsl(0,0%,95%)]">Disk Usage per node (GB) </h1>
 <BarChart
 	x="server"
