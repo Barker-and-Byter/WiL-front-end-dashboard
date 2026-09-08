@@ -217,7 +217,7 @@ $effect(() =>{
 
 <div class="pb-20"></div>
 
-<div class="grid grid-cols-5 max-w-440 mx-auto justify-center gap-4 pl-10 pr-10">
+<div class="grid lg:grid-cols-5 md:grid-cols-2 sm:grid-cols-1 max-w-440 mx-auto justify-center gap-4 pl-10 pr-10">
 
 	{#if isLoading}
 		<div class="shadow-lg max-w-80 aspect-square bg-zinc-500 animate-pulse rounded-3xl justify-center items-center flex flex-col">
@@ -252,9 +252,9 @@ $effect(() =>{
 						cornerRadius={4}
 						padAngle={0.02}
 						class={cls(
-							(segmentIndex / 25) * 100 > 80 && (value ?? 0) > 80
+							(segmentIndex / 25) * 100 > 80 < (value ?? 0) && (value ?? 0) > 80
 								? `fill-red-500`
-								: (segmentIndex / 25) * 100 > 80
+								: (segmentIndex / 25) * 100 > 80 
 								? `fill-red-500/10`
 								: (segmentIndex / 25) * 100 < (value ?? 0)
 								? `fill-emerald-500`

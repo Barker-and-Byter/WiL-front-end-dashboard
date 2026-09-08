@@ -13,6 +13,7 @@ async function authorisation({ event, resolve }){
     const session = await event.locals.auth();
     const accessingLoginPage = event.url.pathname === '/login';
 
+
     if (!session && !accessingLoginPage) {
         throw redirect(307, '/login');
     }
