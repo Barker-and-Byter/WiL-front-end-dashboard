@@ -190,7 +190,11 @@ if (Object.keys(serverCache1).length > 0 && Object.keys(serverCache2).length > 0
 
 
 async function init() {
-  const res = await fetch("/api/auth", {method: "POST"});
+  const res = await fetch("/api/auth", {
+    method: "POST",
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ serverId: 'one'})
+  });
   if (!res.ok){
     status = "error";
     return
@@ -200,7 +204,7 @@ async function init() {
 }
 
 function connectStream() {
-  source = new EventSource("/api/stream");
+  source = new EventSource('/api/stream?serverId=one');
 
     source.onmessage = (event) =>{
       const data = JSON.parse(event.data);

@@ -1,15 +1,31 @@
-import { PRIVATE_SERVER_ONE_API_TOKEN } from "$env/static/private";
+import {env as privateEnv} from '$env/dynamic/private';
+import {env as publicEnv} from '$env/dynamic/public';
 import { PUBLIC_EVENT_SOURCE_ONE } from '$env/static/public';
 import { json, error } from '@sveltejs/kit';
 import type { RequestHandler } from "../auth/$types";
 
-export const GET: RequestHandler = async ({ cookies, fetch }) => {
-    const sessionToken = cookies.get("monitor_session_1");
-    if (!sessionToken) {
-        throw error(401, "Not authenticated");
+export const GET: RequestHandler = async ({ url, cookies, fetch }) => {
+    const serverId = url.searchParams.get("serverId");
+    if (!serverId) {
+        throw error(400, "Missing server ID query parameter");
     }
 
-    const rustRes = await fetch(`${PUBLIC_EVENT_SOURCE_ONE}/data-stream`, {
+    const sourceKey = `PUBLIC_EVENT_SOURCE_${serverId.toUpperCase()}`;
+
+    const eventSource = (publicEnv as Record<string, string>)[sourceKey];
+
+    if (!eventSource){
+        throw error(404, `Configuration for server ${serverId} not found`)
+    }
+
+
+    const sessionToken = cookies.get(`monitor_session_${serverId}`);
+    if (!sessionToken) {
+        throw error(400, "Not authenticated");
+    }
+
+
+    const rustRes = await fetch(`${eventSource}/data-stream`, {
         headers: { Cookie: `auth_token=${sessionToken}`},
     });
 

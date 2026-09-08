@@ -28,7 +28,6 @@ export const { handle, signIn, signOut } = SvelteKitAuth({
             async signIn({ account, profile }) {
                 if (account?.provider === "github") {
                     const githubUsername = profile?.login as string | undefined;
-                    console.log(githubUsername)
 
                     if (!githubUsername || !ALLOWED_GITHUB_USERS.includes(githubUsername.toLowerCase())){
                         return false;

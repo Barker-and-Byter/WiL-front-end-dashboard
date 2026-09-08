@@ -144,9 +144,9 @@ $effect(() =>{
     }
 
     if (serverManager.server1name === serverManager.currentServer){
-       eventsource = new EventSource("/api/stream");
+       eventsource = new EventSource("/api/stream?serverId=one");
     } else if (serverManager.server2name === serverManager.currentServer){
-        eventsource = new EventSource(PUBLIC_EVENT_SOURCE_TWO + "/data-stream");
+        eventsource = new EventSource('/api/stream?serverId=two');
     }
 
     startReceiving(eventsource);

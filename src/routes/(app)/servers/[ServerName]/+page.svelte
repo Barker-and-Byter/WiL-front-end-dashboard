@@ -177,10 +177,7 @@ function reset(){
 	);
 }
 
-async function init() {
-  eventsource = new EventSource("/api/stream");
-  startReceiving(eventsource);
-}
+
 
 
 
@@ -194,12 +191,13 @@ $effect(() =>{
     }
 
     if (serverManager.server1name === serverManager.currentServer){
-		init()
+		eventsource = new EventSource('/api/stream?serverId=one');
+
     } else if (serverManager.server2name === serverManager.currentServer){
-        eventsource = new EventSource(PUBLIC_EVENT_SOURCE_TWO + "/data-stream");
-		startReceiving(eventsource);
+        eventsource = new EventSource('/api/stream?serverId=two');
 	}
 
+	startReceiving(eventsource);
     
 
     return (() => {
