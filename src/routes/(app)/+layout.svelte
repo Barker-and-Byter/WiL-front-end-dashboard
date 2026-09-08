@@ -4,6 +4,7 @@
 	let { children } = $props();
 	import "../../app.css";
 	import { page } from "$app/state";
+	import { signOut } from "@auth/sveltekit/client";
 	import { serverManager } from '$lib/components/serverStore.svelte';	
 	import dockerlogobright from '$lib/assets/docker-logo-ocean-blue.svg?raw';
 	import dockerlogodim from '$lib/assets/docker-logo-deep-blue.svg?raw';
@@ -51,7 +52,7 @@
 			</svg>
 			</button>
 			<div class="absolute left-0 w-40 pt-1 origin-top-left opacity-0 invisible group-hover:opacity-100 group-hover:visible transition ease-in-out duration-300">
-				<div class="bg-[hsl(0,0%,5%)] divide-y divide-gray-800 rounded-md shadow-lg border border-[hsl(0,0%,30%)]">
+				<div class="bg-[hsl(0,0%,5%)]/60 backdrop-blur-lg divide-y divide-gray-800 rounded-md shadow-lg border border-[hsl(0,0%,30%)]">
 				<div class="py-1">
 
         <a href="/servers/{serverManager.server1name}"
@@ -91,7 +92,7 @@
 					{/if}
 			</button>
 			<div class="absolute left-0 w-40 pt-3 origin-top-right opacity-0 invisible group-hover:opacity-100 group-hover:visible transition ease-in-out duration-300">
-				<div class="bg-[hsl(0,0%,5%)] divide-y divide-gray-800 rounded-md shadow-lg border border-[hsl(0,0%,30%)]">
+				<div class="bg-[hsl(0,0%,5%)]/60 backdrop-blur-lg divide-y divide-gray-800 rounded-md shadow-lg border border-[hsl(0,0%,30%)]">
 				<div class="py-1">
 
 				<a href="/containers/"
@@ -122,8 +123,27 @@
 			alt="Docker logo"/>
 
 		{/if}
-		<padding>10</padding>
-
+			{#if page.data.session?.user?.image}
+			<div class="relative inline-block text-left group">
+			<img
+			class="relative h-7 w-7 rounded-3xl group-hover:ring-4 group-hover:ring-indigo-500 transition-all duration-400 ease-out"
+			src={page.data.session.user?.image}
+			referrerpolicy="no-referrer"
+			alt="User Avatar"/>
+			<div class="absolute right-0 w-23 pt-3 origin-top-right opacity-0 invisible group-hover:opacity-100 group-hover:visible transition ease-in-out duration-300">
+				<div class="bg-[hsl(0,0%,5%)]/60 backdrop-blur-lg divide-y divide-gray-800 rounded-md shadow-lg border border-[hsl(0,0%,30%)]">
+					<div class="py-1">
+						<button type="button"
+							class="block text-left w-full px-4 py-2 text-sm text-indigo-400 hover:bg-[hsl(0,0%,10%)]"
+							onclick={() => signOut()}
+							>
+							Sign Out
+					</button>
+					</div>
+				</div>
+			</div>
+			</div>
+			{/if}
       </div>
     </div>
   </div>

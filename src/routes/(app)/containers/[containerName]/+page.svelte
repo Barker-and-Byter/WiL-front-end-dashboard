@@ -3,7 +3,7 @@ import { page } from '$app/stores';
 import { onMount, onDestroy, untrack} from 'svelte';
 import { serverManager } from '$lib/components/serverStore.svelte';
 import { PUBLIC_EVENT_SOURCE_ONE, PUBLIC_EVENT_SOURCE_TWO } from '$env/static/public';
-import { Area, Arc, Chart, ClipPath, Group, Layer, Line, LinearGradient, Text, PieChart } from 'layerchart';
+import { Area, Arc, Chart, ClipPath, Group, Layer, Line, LinearGradient, Text, PieChart, AnnotationPoint } from 'layerchart';
 import { scaleLinear, scaleThreshold } from 'd3-scale';
 import { SpringValue } from 'svelte-ux';
 import { curveCatmullRom } from 'd3-shape';
@@ -182,6 +182,18 @@ $effect(() =>{
 			class="text-white"
 			yDomain={[0, 100]}
 		>
+        	{#snippet aboveMarks({ context })}
+		        {@const lastPoint = CPUDataGraph[CPUDataGraph.length - 1]}
+                {#if lastPoint}
+		            <AnnotationPoint
+			            x={lastPoint.time}
+                        y={lastPoint.value}
+                        props={{
+                            circle: {color: '#3b82f6'}
+                        }}
+                />
+                {/if}
+            {/snippet}
 			{#snippet marks()}
 		<LinearGradient class={(cpuUsage ?? 0) < 80 ? "from-blue-500/50 to-blue-500/1" : "from-red-500/50 to-red-500/1"} vertical>
 			{#snippet children({ gradient })}
@@ -207,8 +219,19 @@ $effect(() =>{
 			height={300}
 			yDomain={[0, 100]}
 			class={'text-white'}
-
 	>
+        {#snippet aboveMarks({ context })}
+        {@const lastPoint = CPUDataGraph[CPUDataGraph.length - 1]}
+        {#if lastPoint}
+            <AnnotationPoint
+                x={lastPoint.time}
+                y={lastPoint.value}
+                props={{
+                    circle: {color: '#3b82f6'}
+                }}
+        />
+        {/if}
+    {/snippet}
 	{#snippet marks()}
 		<LinearGradient class={(ramUsage ?? 0) < 80 ? "from-blue-500/50 to-blue-500/1" : "from-red-500/50 to-red-500/1"} vertical>
 			{#snippet children({ gradient })}
@@ -235,22 +258,19 @@ $effect(() =>{
 		return {
 			type: 'point',
 			seriesKey: s.key,
-			label: s.key === 'Block Write' ? 'Write' : 'Read',
-			labelPlacement: 'right',
-			labelXOffset: 4,
 			x: lastDataPoint.time,
 			y: lastDataPoint.value,
 			props: {
-				circle: { fill: s.color },
-				label: { fill: s.color }
+				circle: { fill: s.color},
 			}
 		};
 	})}
-    padding={defaultChartPadding({ right: 10 })}
+    legend
+    padding={defaultChartPadding({ legend: true, right: 10 })}
     height={300}
     props = {{
-      xAxis: { tickSpacing: 150}
-      
+      xAxis: { tickSpacing: 150},
+      area: { curve: curveCatmullRom}
     }}
   >
   	{#snippet marks({ context })}
@@ -287,22 +307,19 @@ $effect(() =>{
 		return {
 			type: 'point',
 			seriesKey: s.key,
-			label: s.key === 'Net Tx' ? 'Net Tx' : 'Net Rx',
-			labelPlacement: 'right',
-			labelXOffset: 4,
 			x: lastDataPoint.time,
 			y: lastDataPoint.value,
 			props: {
 				circle: { fill: s.color },
-				label: { fill: s.color }
 			}
 		};
 	})}
-    padding={defaultChartPadding({ right: 10 })}
+    legend
+    padding={defaultChartPadding({ legend: true, right: 10 })}
     height={300}
     props = {{
-      xAxis: { tickSpacing: 150}
-      
+      xAxis: { tickSpacing: 150},
+      area: {curve: curveCatmullRom}
     }}
   >
   	{#snippet marks({ context })}

@@ -244,6 +244,9 @@ onMount(() => {
   serverManager.currentServer = null;
   isLoading = true;
 
+  if (source) {
+    source.close();
+  }
   init();
 
   let serverSource2: EventSource = new EventSource(PUBLIC_EVENT_SOURCE_TWO + '/data-stream');

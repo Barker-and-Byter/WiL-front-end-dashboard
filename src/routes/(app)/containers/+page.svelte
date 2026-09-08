@@ -183,9 +183,6 @@
             return {
                 type: 'point',
                 seriesKey: s.key,
-                label: s.key,
-                labelPlacement: 'right',
-                labelXOffset: 4,
                 x: lastDataPoint.time,
                 y: lastDataPoint.value,
                 props: {
@@ -194,7 +191,8 @@
                 }
             };
         })}
-        padding={defaultChartPadding({ right: 10 })}
+        legend
+	    padding={defaultChartPadding({ legend: true, right: 10 })}
         height={300}
         yDomain={[0, 100]}
         props = {{
@@ -235,18 +233,15 @@
             return {
                 type: 'point',
                 seriesKey: s.key,
-                label: s.key,
-                labelPlacement: 'right',
-                labelXOffset: 4,
                 x: lastDataPoint.time,
                 y: lastDataPoint.value,
                 props: {
                     circle: { fill: s.color },
-                    label: { fill: s.color }
                 }
             };
         })}
-        padding={defaultChartPadding({ right: 10 })}
+        legend
+	    padding={defaultChartPadding({ legend: true, right: 10 })}
         height={300}
         yDomain={[0, 100]}
         props = {{
@@ -288,9 +283,7 @@
             return {
                 type: 'point',
                 seriesKey: s.key,
-                label: s.key,
-                labelPlacement: 'right',
-                labelXOffset: 4,
+
                 x: lastDataPoint.time,
                 y: lastDataPoint.value,
                 props: {
@@ -299,7 +292,8 @@
                 }
             };
         })}
-        padding={defaultChartPadding({ right: 10 })}
+        legend
+	    padding={defaultChartPadding({ legend: true, right: 10 })}
         height={300}
         props = {{
         xAxis: { tickSpacing: 150}
@@ -340,9 +334,7 @@
             return {
                 type: 'point',
                 seriesKey: s.key,
-                label: s.key,
-                labelPlacement: 'right',
-                labelXOffset: 4,
+
                 x: lastDataPoint.time,
                 y: lastDataPoint.value,
                 props: {
@@ -351,7 +343,8 @@
                 }
             };
         })}
-        padding={defaultChartPadding({ right: 10 })}
+        legend
+	    padding={defaultChartPadding({ legend: true, right: 10 })}
         height={300}
         props = {{
         xAxis: { tickSpacing: 150}
@@ -392,9 +385,7 @@
             return {
                 type: 'point',
                 seriesKey: s.key,
-                label: s.key,
-                labelPlacement: 'right',
-                labelXOffset: 4,
+
                 x: lastDataPoint.time,
                 y: lastDataPoint.value,
                 props: {
@@ -403,7 +394,8 @@
                 }
             };
         })}
-        padding={defaultChartPadding({ right: 10 })}
+        legend
+	    padding={defaultChartPadding({ legend: true, right: 10 })}
         height={300}
         props = {{
         xAxis: { tickSpacing: 150}
@@ -444,9 +436,7 @@
             return {
                 type: 'point',
                 seriesKey: s.key,
-                label: s.key,
-                labelPlacement: 'right',
-                labelXOffset: 4,
+
                 x: lastDataPoint.time,
                 y: lastDataPoint.value,
                 props: {
@@ -455,7 +445,8 @@
                 }
             };
         })}
-        padding={defaultChartPadding({ right: 10 })}
+        legend
+	    padding={defaultChartPadding({ legend: true, right: 10 })}
         height={300}
         props = {{
         xAxis: { tickSpacing: 150}

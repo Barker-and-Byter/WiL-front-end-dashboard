@@ -9,30 +9,6 @@ let title = "Dashi Boardi";
 
 
  
-<!-- <h1 class="text-white">SvelteKit Auth Example</h1>
-<div>
-  {#if $page.data.session}
-    {#if $page.data.session.user?.image}
-      <img
-        src={$page.data.session.user.image}
-        class="avatar"
-        alt="User Avatar"
-      />
-    {/if}
-    <span class="signedInText text-white">
-      <small>Signed in as</small><br />
-      <strong>{$page.data.session.user?.name ?? "User"}</strong>
-    </span>
-    <SignOut>
-      <div slot="submitButton" class="buttonPrimary text-white">Sign out</div>
-    </SignOut>
-  {:else}
-    <span class="notSignedInText text-white">you are not signed in rn</span>
-    <SignIn>
-      <div slot="submitButton" class="buttonPrimary text-white">Sign in</div>
-    </SignIn>
-    <SignIn class="text-white" provider="github"/>
-  {/if} -->
   <div class="flex flex-col items-center justify-center min-h-screen">
   <h1 class="text-9xl pt-10 font-black uppercase bg-clip-text text-transparent mb-20 bg-white/80 backdrop-blur-xl [-webkit-text-stroke:1px_rgba(255,255,255,0.2)] text-center" style="text-shadow: 0 10px 50px rgba(31,38,135,0.6);">
     Dashi Boardi
