@@ -9,11 +9,23 @@ let title = "Dashi Boardi";
 
 
  
-  <div class="flex flex-col items-center justify-center min-h-screen">
-  <h1 class="text-9xl pt-10 font-black uppercase bg-clip-text text-transparent mb-20 bg-white/80 backdrop-blur-xl [-webkit-text-stroke:1px_rgba(255,255,255,0.2)] text-center" style="text-shadow: 0 10px 50px rgba(31,38,135,0.6);">
-    Dashi Boardi
-  </h1>
-  <div class="w-full justify-center align-center max-w-md p-8 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_0_rgba(31,38,135,0.30)]">
+  <div class="font-sans min-h-screen">
+    <div class=" grid h-full min-h-screen w-full place-items-center overflow-clip">
+      <div class="relative grid place-items-center h-full w-full [grid-area:1/1]"
+       role="figure"
+       >
+      <!-- <div class="h-1/2 w-3/4 rounded-[3vw] bg-primary-gradient mix-blend-soft-light"></div> -->
+      
+      <div class="absolute inset-0 bg-white/2 backdrop-blur-sm"></div>
+      
+      <div class="absolute inset-0 bg-(image:--frost-gradient) bg-size-[80px] mix-blend-color-dodge"></div>
+      </div>
+      <div class="mix-blend-normal [grid-area:1/1]">
+        <h1 class="text-white/20 text-[10vw] font-semibold leading-snug">
+          Dashi Boardi
+        </h1>
+      </div>
+    <div class="w-full justify-center align-center max-w-md p-8 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_0_rgba(31,38,135,0.30)] [grid-area:1/1]">
 
   <div class="text-center mb-8">
     <h1 class="text-3xl font-bold text-transparent bg-clip-text bg-linear-to-r from-white to-white/70 tracking-tight">Log In</h1>
@@ -44,4 +56,5 @@ let title = "Dashi Boardi";
     </div>
 </form>
   </div>
+</div>
 </div>

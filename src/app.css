@@ -1,5 +1,37 @@
 @import "tailwindcss";
 
+@theme {
+    --background-image-primary-gradient: linear-gradient(
+        to bottom,
+        #b59cf8,
+        #f5f2ff 48%,
+        #b59cf8 68%,
+        #8273a9 100%
+    );
+    --frost-gradient: repeating-linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.04) 0%,
+        rgba(0, 0, 0, 0.39) 49%,
+        rgba(255, 255, 255, 0.27) 100%
+    );
+
+    --color-black: #000113;
+    --color-white: #fff;
+    --color-violet: #3b3c98;
+
+    --font-sans: "Poppins", sans-serif;
+    --font-mono: "monospace";
+}
+
+@utility circular-fadeout {
+    mask-image: radial-gradient(
+        circle,
+        rgba(0, 0, 0, 1) 40%,
+        rgba(0, 0, 0, 0) 75%
+    );
+    mask-size: cover;
+}
+
 
 .core-header {
     font-size: 20px;
