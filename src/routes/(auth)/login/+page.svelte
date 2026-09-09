@@ -3,7 +3,32 @@
 import { signIn, signOut } from "@auth/sveltekit/client"
 import { page } from '$app/stores';
 
+let email = "";
+let password = "";
 let title = "Dashi Boardi";
+  
+function togglePasswordView() {
+  const passwordField = document.getElementById("DaPassword");
+  const eyeIcon = document.getElementById("eyeIcon");
+
+
+  if (passwordField.type === "password"){
+    passwordField.type = "text";
+    eyeIcon.innerHTML = `
+    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+    <circle cx="12" cy="12" r="3"></circle>
+    `;
+
+  } else {
+    passwordField.type = "password"
+    eyeIcon.innerHTML = `
+    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+    <line x1="1" y1="1" x2="23" y2="23"></line>
+    `;
+  }
+
+}
+
 
 </script>
 
@@ -22,7 +47,7 @@ let title = "Dashi Boardi";
       </div>
       <div class="mix-blend-normal [grid-area:1/1]">
         <h1 class="text-white/20 text-[10vw] font-semibold leading-snug">
-          Dashi Boardi
+          {title}
         </h1>
       </div>
     <div class="w-full justify-center align-center max-w-md p-8 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_0_rgba(31,38,135,0.30)] [grid-area:1/1]">
@@ -32,11 +57,22 @@ let title = "Dashi Boardi";
   </div>
   <form class="space-y-5">  
     <div class="space-y-4">
-    <input class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/20 text-white placeholder-white/40 backdrop-blur-md transition-all duration-300 focus:outline-none focus:bg-white/10 focus:border-white/40 focus:ring-2 focus:ring-indigo-500 " placeholder="Email address">
-    <input class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/20 text-white placeholder-white/40 backdrop-blur-md transition-all duration-300 focus:outline-none focus:bg-white/10 focus:border-white/40 focus:ring-2 focus:ring-indigo-500 " placeholder="Password">
+    <input class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/20 text-white placeholder-white/40 backdrop-blur-md transition-all duration-300 focus:outline-none focus:bg-white/10 focus:border-white/40 focus:ring-2 focus:ring-indigo-500 " placeholder="Email address" bind:value={email}>
+    <div class="relative w-full max-w-sm">
+      <input class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/20 text-white placeholder-white/40 backdrop-blur-md transition-all duration-300 focus:outline-none focus:bg-white/10 focus:border-white/40 focus:ring-2 focus:ring-indigo-500 " placeholder="Password" type="password" id="DaPassword" bind:value={password}>
+      <button type="button"
+      onclick={() => togglePasswordView()}
+      class="absolute inset-y-0 right-0 flex items-center pr-3 text-white/40 hover:text-white/70 focus:outline-none"
+      >
+      <svg id="eyeIcon" xmlns="http://w3.org" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+      <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+      <line x1="1" y1="1" x2="23" y2="23"></line>
+    </svg>
+      </button>
+    </div>
 
 </div>
-    <button class="relative overflow-hidden flex px-8 py-3 rounded-2xl font-semibold text-white tracking-wide bg-white/10 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_0_rgba(31,38,135,0.30)] transition-all duration-300 ease-out hover:bg-white/20 hover:scale-105 hover:shadow-[0_8px_32px_0_rgba(31,38,135,0.5)] active:scale-95 active:bg-white/10 w-full justify-center text-lg mt-10">
+    <button onclick={() => signIn("credentials", {email, password})} class="relative overflow-hidden flex px-8 py-3 rounded-2xl font-semibold text-white tracking-wide bg-white/10 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_0_rgba(31,38,135,0.30)] transition-all duration-300 ease-out hover:bg-white/20 hover:scale-105 hover:shadow-[0_8px_32px_0_rgba(31,38,135,0.5)] active:scale-95 active:bg-white/10 w-full justify-center text-lg mt-10">
          Sign In
     </button>
     <div class="mt-8 flex items-center justify-between">
