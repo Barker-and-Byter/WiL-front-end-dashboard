@@ -9,7 +9,9 @@
 	import dockerlogobright from '$lib/assets/docker-logo-ocean-blue.svg?raw';
 	import dockerlogodim from '$lib/assets/docker-logo-deep-blue.svg?raw';
 	import dockerlogowhite from '$lib/assets/docker-logo-white.svg?raw';
+	import userAvatar from '$lib/assets/User-avatar.svg?raw';
 
+	const userAvatarencoded= `data:image/svg+xml,${encodeURIComponent(userAvatar)}`;
 	const dockerlogobrightencoded = `data:image/svg+xml,${encodeURIComponent(dockerlogobright)}`;
 	const dockerlogodimenconded = `data:image/svg+xml,${encodeURIComponent(dockerlogodim)}`;
 	const dockerlogowhiteencoded = 	`data:image/svg+xml,${encodeURIComponent(dockerlogowhite)}`;
@@ -129,6 +131,25 @@
 			class="relative h-7 w-7 rounded-3xl group-hover:ring-4 group-hover:ring-indigo-500 transition-all duration-400 ease-out"
 			src={page.data.session.user?.image}
 			referrerpolicy="no-referrer"
+			alt="User Avatar"/>
+			<div class="absolute right-0 w-23 pt-3 origin-top-right opacity-0 invisible group-hover:opacity-100 group-hover:visible transition ease-in-out duration-300">
+				<div class="bg-[hsl(0,0%,5%)]/60 backdrop-blur-lg divide-y divide-gray-800 rounded-md shadow-lg border border-[hsl(0,0%,30%)]">
+					<div class="py-1">
+						<button type="button"
+							class="block text-left w-full px-4 py-2 text-sm text-indigo-400 hover:bg-[hsl(0,0%,10%)]"
+							onclick={() => signOut()}
+							>
+							Sign Out
+					</button>
+					</div>
+				</div>
+			</div>
+			</div>
+			{:else}
+			<div class="relative inline-block text-left group">
+			<img
+			class="relative h-7 w-7 rounded-3xl group-hover:ring-4 group-hover:ring-indigo-500 transition-all duration-400 ease-out"
+			src={userAvatarencoded}
 			alt="User Avatar"/>
 			<div class="absolute right-0 w-23 pt-3 origin-top-right opacity-0 invisible group-hover:opacity-100 group-hover:visible transition ease-in-out duration-300">
 				<div class="bg-[hsl(0,0%,5%)]/60 backdrop-blur-lg divide-y divide-gray-800 rounded-md shadow-lg border border-[hsl(0,0%,30%)]">

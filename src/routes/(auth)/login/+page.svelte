@@ -2,6 +2,7 @@
 <script lang="ts">
 import { signIn, signOut } from "@auth/sveltekit/client"
 import { page } from '$app/stores';
+import { PUBLIC_RECAPTCHA_SITE_KEY} from 'c'
 
 let email = "";
 let password = "";
@@ -29,8 +30,11 @@ function togglePasswordView() {
 
 }
 
-
 </script>
+
+<head>
+<script> src=`https://www.google.com/recaptcha/enterprise.js?render=${PUBLIC_RECAPTCHA_SITE_KEY}`
+</head>
 
 
  
