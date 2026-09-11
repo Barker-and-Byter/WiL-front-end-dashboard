@@ -7,7 +7,7 @@
 	import { AreaChart, defaultChartPadding } from 'layerchart';
 	import { cls } from '@layerstack/tailwind';
     import { onDestroy, onMount, untrack } from 'svelte';
-	import { PUBLIC_EVENT_SOURCE_ONE, PUBLIC_EVENT_SOURCE_TWO } from '$env/static/public';
+	import { env } from '$env/dynamic/public';
 	import { serverManager } from '$lib/components/serverStore.svelte';
 	import dockerlogobright from '$lib/assets/docker-logo-ocean-blue.svg?raw';
 	import dockerlogodim from '$lib/assets/docker-logo-deep-blue.svg?raw';

@@ -2,7 +2,7 @@
 import { page } from '$app/stores';
 import { onMount, onDestroy, untrack} from 'svelte';
 import { serverManager } from '$lib/components/serverStore.svelte';
-import { PUBLIC_EVENT_SOURCE_ONE, PUBLIC_EVENT_SOURCE_TWO } from '$env/static/public';
+import { env } from '$env/dynamic/public';
 import { Area, Arc, Chart, ClipPath, Group, Layer, Line, LinearGradient, Text, PieChart, AnnotationPoint } from 'layerchart';
 import { scaleLinear, scaleThreshold } from 'd3-scale';
 import { SpringValue } from 'svelte-ux';

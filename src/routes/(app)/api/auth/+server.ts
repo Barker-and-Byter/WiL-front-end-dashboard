@@ -1,6 +1,6 @@
-import * as privateEnv from '$env/static/private';
-import * as publicEnv from '$env/static/public';
 import { json, error } from '@sveltejs/kit';
+import { env as privateEnv} from '$env/dynamic/private';
+import { env as publicEnv } from '$env/dynamic/public';
 import type { RequestHandler } from "./$types";
 
 
@@ -14,8 +14,8 @@ export const POST: RequestHandler = async ({ request, fetch, cookies }) => {
   const tokenKey = `PRIVATE_SERVER_${serverId.toUpperCase()}_API_TOKEN`;
   const sourceKey = `PUBLIC_EVENT_SOURCE_${serverId.toUpperCase()}`;
 
-  const apiToken = privateEnv[tokenKey as keyof typeof privateEnv];
-  const eventSource = publicEnv[sourceKey as keyof typeof publicEnv];
+  const apiToken = (privateEnv as Record<string, string | undefined>)[tokenKey];
+  const eventSource = (publicEnv as Record<string, string | undefined>)[sourceKey];
 
   if (!apiToken || !eventSource) {
     throw error(400, `Invalid or unconfigured server Id: ${serverId}` );

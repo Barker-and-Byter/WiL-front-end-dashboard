@@ -4,7 +4,7 @@
 import { BarChart, Text,Spline,Chart, Axis, Area, AreaChart, defaultChartPadding, LinearGradient, pivotLonger, Layer } from 'layerchart';
 import { group } from 'd3-array';
 import { onMount, untrack } from "svelte";
-import { PUBLIC_EVENT_SOURCE_ONE, PUBLIC_EVENT_SOURCE_TWO } from '$env/static/public';
+import { env } from '$env/dynamic/public';
 import { page } from '$app/state';
 import { serverManager } from '$lib/components/serverStore.svelte';
 import dockerlogowhite from '$lib/assets/docker-logo-white.svg?raw';
@@ -210,9 +210,7 @@ function connectStream() {
       const data = JSON.parse(event.data);
       const localTime = Date.now();
       const latency = data.timestamp - localTime;
-      if (serverManager.server1name == ""){
-        serverManager.server1name = data.hostname;
-      }
+      serverManager.server1name = data.hostname;
 
         serverCache1 = {
         s1CpuValue : Number(data.cpuUsage ?? 0),
@@ -249,39 +247,39 @@ onMount(() => {
   }
   init();
 
-  let serverSource2: EventSource = new EventSource(PUBLIC_EVENT_SOURCE_TWO + '/data-stream');
+  // let serverSource2: EventSource = new EventSource(PUBLIC_EVENT_SOURCE_TWO + '/data-stream');
   
 
-  serverSource2.onmessage = (event) => {
-        const data = JSON.parse(event.data);
+  // serverSource2.onmessage = (event) => {
+  //       const data = JSON.parse(event.data);
 
-      const localTime = Date.now();
-      const latency = data.timestamp - localTime;
-      if (serverManager.server2name == ""){
-        serverManager.server2name = data.hostname;
-      } 
+  //     const localTime = Date.now();
+  //     const latency = data.timestamp - localTime;
+  //     if (serverManager.server2name == ""){
+  //       serverManager.server2name = data.hostname;
+  //     } 
 
-      serverCache2 = {
-        s2CpuValue : Number(data.cpuUsage ?? 0),
-        s2RamValue: Number(data.ramUsage ?? 0),
-        s2DriveUsage: Number(data.driveUsage ?? 0),
-        s2DriveUsed: Number(data.driveUsed ?? 0),
-        s2DriveFree: Number(data.driveFree ?? 0),
-        s2RamUsed: Number(data.ramUsed ?? 0),
-        s2RamFree: Number(data.ramFree ?? 0),
-        s2upSpeed: String(data.upSpeed ?? "0"),
-        s2downSpeed: String(data.downSpeed ?? "0"),
-        s2writeSpeed: Number(data.writeSpeed ?? 0),
-        s2readSpeed: Number(data.readSpeed ?? 0),
-        s2latency: latency,
-      };
-      combineData();
-  }
+  //     serverCache2 = {
+  //       s2CpuValue : Number(data.cpuUsage ?? 0),
+  //       s2RamValue: Number(data.ramUsage ?? 0),
+  //       s2DriveUsage: Number(data.driveUsage ?? 0),
+  //       s2DriveUsed: Number(data.driveUsed ?? 0),
+  //       s2DriveFree: Number(data.driveFree ?? 0),
+  //       s2RamUsed: Number(data.ramUsed ?? 0),
+  //       s2RamFree: Number(data.ramFree ?? 0),
+  //       s2upSpeed: String(data.upSpeed ?? "0"),
+  //       s2downSpeed: String(data.downSpeed ?? "0"),
+  //       s2writeSpeed: Number(data.writeSpeed ?? 0),
+  //       s2readSpeed: Number(data.readSpeed ?? 0),
+  //       s2latency: latency,
+  //     };
+  //     combineData();
+  // }
 
-  return () => {
-    source.close();
-    serverSource2.close();
-  }
+  // return () => {
+  //   source.close();
+  //   serverSource2.close();
+  // }
 })
 
 </script>

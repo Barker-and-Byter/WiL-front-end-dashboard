@@ -7,7 +7,7 @@
 	import { cls } from '@layerstack/tailwind';
     import { onDestroy, onMount, untrack } from 'svelte';
 	import { serverManager } from '$lib/components/serverStore.svelte';
-    import { PUBLIC_EVENT_SOURCE_ONE, PUBLIC_EVENT_SOURCE_TWO } from '$env/static/public';
+    import { env } from '$env/dynamic/public';
 
     let eventsource: EventSource;
     let isLoading: boolean = $state(true);

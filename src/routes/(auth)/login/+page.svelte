@@ -31,8 +31,7 @@ function togglePasswordView() {
 
 </script>
 
-
-
+ 
   <div class="font-sans min-h-screen">
     <div class=" grid h-full min-h-screen w-full place-items-center overflow-clip">
       <div class="relative grid place-items-center h-full w-full [grid-area:1/1]"

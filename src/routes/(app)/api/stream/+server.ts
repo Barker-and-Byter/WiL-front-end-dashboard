@@ -1,6 +1,5 @@
 import {env as privateEnv} from '$env/dynamic/private';
 import {env as publicEnv} from '$env/dynamic/public';
-import { PUBLIC_EVENT_SOURCE_ONE } from '$env/static/public';
 import { json, error } from '@sveltejs/kit';
 import type { RequestHandler } from "../auth/$types";
 

@@ -1,10 +1,12 @@
 services:
   server:
-    image: ghcr.io/barker-and-byter/wil-front-end-dashboard/dashiboardi:latest
+    image: ghcr.io/barker-and-byter/wil-front-end-dashboard:latest
     container_name: dashiboardi
     ports:
-      - 3000:3000
+      - "3000:3000"
     environment:
+      - PUBLIC_EVENT_SOURCE_ONE=http://host.docker.internal:80
+      - PUBLIC_EVENT_SOURCE_TWO=${PUBLIC_EVENT_SOURCE_TWO}
       - AUTH_GITHUB_ID=${AUTH_GITHUB_ID}
       - AUTH_GITHUB_SECRET=${AUTH_GITHUB_SECRET}
       - AUTH_SECRET=${AUTH_SECRET}
@@ -12,3 +14,8 @@ services:
       - AUTH_GOOGLE_SECRET=${AUTH_GOOGLE_SECRET}
       - AUTH_GOOGLE_ID=${AUTH_GOOGLE_ID}
       - ALLOWED_GITHUB_USERS=${ALLOWED_GITHUB_USERS}
+      - PRIVATE_SERVER_ONE_API_TOKEN=${PRIVATE_SERVER_ONE_API_TOKEN}
+      - ORIGIN=http://localhost:3000
+      - AUTH_URL=http://localhost:3000
+    extra_hosts:
+      - host.docker.internal:host-gateway
