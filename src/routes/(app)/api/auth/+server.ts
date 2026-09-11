@@ -41,7 +41,7 @@ export const POST: RequestHandler = async ({ request, fetch, cookies }) => {
 
     cookies.set(`monitor_session_${serverId.toLowerCase()}`, match[1], {
     path: "/",
-    secure: true,
+    secure: false,
     httpOnly: true,
     sameSite: "lax",
   });
