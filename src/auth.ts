@@ -11,7 +11,7 @@ const loginSchema = z.object({
     password: z.string().min(6),
 });
 
-export const { handle, signIn, signOut } = SvelteKitAuth({
+export const { handle, signIn, signOut} = SvelteKitAuth({
         providers: [
             Credentials({
                 credentials: {
@@ -63,15 +63,22 @@ export const { handle, signIn, signOut } = SvelteKitAuth({
         trustHost: env.AUTH_TRUST_HOST === "true",
 
         callbacks: {
-            async signIn({ account, profile }) {
+            async signIn({ user, account, profile }) {
                 if (account?.provider === "github") {
                     const githubUsername = profile?.login as string | undefined;
 
                     if (!githubUsername || !env.ALLOWED_GITHUB_USERS.includes(githubUsername.toLowerCase())){
+                        console.warn(`[AUTH Blocked Github User: ${githubUsername}`)
                         return false;
                     }
                 }
+                console.info(`[AUTH] User succesfully logged in: ${user.email} via ${account?.provider ?? "credentials"}`);
                 return true;
-            }
+            },
+        },
+        events: {
+            async signOut(message) {
+                console.info(`[AUTH] User logged out session:`, message);
+            },
         }
 });

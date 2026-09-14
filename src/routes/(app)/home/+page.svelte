@@ -189,22 +189,22 @@ if (Object.keys(serverCache1).length > 0 && Object.keys(serverCache2).length > 0
 }
 
 
-async function init() {
+async function init(serverID) {
   const res = await fetch("/api/auth", {
     method: "POST",
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ serverId: 'one'})
+    body: JSON.stringify({ serverId: serverID})
   });
   if (!res.ok){
     status = "error";
     return
   }
 
-  connectStream();
+  connectStream(serverID);
 }
 
-function connectStream() {
-  source = new EventSource('/api/stream?serverId=one');
+function connectStream(serverId) {
+  source = new EventSource(`/api/stream?serverId=${serverId}`);
 
     source.onmessage = (event) =>{
       const data = JSON.parse(event.data);
@@ -245,7 +245,8 @@ onMount(() => {
   if (source) {
     source.close();
   }
-  init();
+  init('one');
+  init('two');
 
   // let serverSource2: EventSource = new EventSource(PUBLIC_EVENT_SOURCE_TWO + '/data-stream');
   
