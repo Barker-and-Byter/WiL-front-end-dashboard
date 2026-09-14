@@ -1,9 +1,10 @@
 import Database from "better-sqlite3";
 import bcrypt from 'bcrypt';
 
-const db = new Database('credentials.db');
+export async function initDB() {
+    const db = new Database('credentials.db');
 
-db.exec(`
+    db.exec(`
     CREATE TABLE IF NOT EXISTS users (
         id TEXT PRIMARY KEY,
         email TEXT UNIQUE NOT NULL,
@@ -20,3 +21,4 @@ const insert = db.prepare('INSERT OR IGNORE INTO users (id, email, password_hash
 insert.run('1',testEmail,passwordHash,"jared")
 
 console.log("database succesfully initialised")
+}

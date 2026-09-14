@@ -1,6 +1,7 @@
 import { redirect } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
 import { handle as authHandle } from "./auth";
+import { initDB } from './utils/initDb';
 
  
 /** @type {import('@sveltejs/kit').Handle} */
@@ -25,4 +26,16 @@ async function authorisation({ event, resolve }){
     return await resolve(event);
 }
 
+export async function init() {
+    console.log("Initializing database");
+    try {
+        await initDB()
+    } catch (error) {
+        console.log("database initialisation failed");
+        return
+    }
+    console.log("Database succesfully initialised");
+    
+
+}
 export const handle = sequence(authHandle, authorisation);
