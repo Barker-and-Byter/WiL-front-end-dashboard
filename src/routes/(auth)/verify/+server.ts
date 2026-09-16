@@ -1,8 +1,8 @@
-import { error } from '@sveltejs/kit';
-import type { RequestHandler } from './$types';
+import { type RequestHandler } from './$types';
 
 export const GET: RequestHandler = async ({ locals, cookies }) => {
     let session = await locals.auth();
+    
     if (!session) {
         const token = cookies.get('authjs.session-token') || cookies.get('__Secure-authjs.session-token');
         if (token) {
@@ -12,12 +12,18 @@ export const GET: RequestHandler = async ({ locals, cookies }) => {
             };
         }
     }
+
     if (!session) {
-        error(401, 'Unauthorized');
+        return new Response('Unauthorized', { 
+            status: 401,
+            headers: { 'Content-Type': 'text/plain' }
+        });
     }
+    
     return new Response('OK', {
         status: 200,
         headers: {
+            'Content-Type': 'text/plain',
             'X-Auth-User-Email': session.user?.email || '',
             'X-Auth-User-Name': session.user?.name || ''
         }
