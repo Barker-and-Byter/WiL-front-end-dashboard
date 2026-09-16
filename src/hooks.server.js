@@ -7,7 +7,7 @@ import { initDB } from './utils/initDb';
 /** @type {import('@sveltejs/kit').Handle} */
 async function authorisation({ event, resolve }){
     //allow for my auth route to bypass redirection
-    if (event.url.pathname.startsWith('/auth') || event.url.pathname === '/verify') {
+    if (event.url.pathname.startsWith('/auth') || event.url.pathname === '/verify' || event.url.pathname === '/') {
         return await resolve(event);
     }
 
