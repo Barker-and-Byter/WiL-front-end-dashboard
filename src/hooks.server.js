@@ -7,20 +7,18 @@ import { initDB } from './utils/initDb';
 /** @type {import('@sveltejs/kit').Handle} */
 async function authorisation({ event, resolve }){
     //allow for my auth route to bypass redirection
-    if (event.url.pathname.startsWith('/auth') || event.url.pathname === '/verify' || event.url.pathname === '/') {
+    if (event.url.pathname.startsWith('/auth') || event.url.pathname === '/verify' || event.url.pathname === '/' || event.url.pathname === '/login') {
+        const session = await event.locals.auth();
+        if (session && event.url.pathname === '/login') {
+            throw redirect(307, '/home');
+        }
         return await resolve(event);
     }
 
     const session = await event.locals.auth();
-    const accessingLoginPage = event.url.pathname === '/login';
 
-
-    if (!session && !accessingLoginPage) {
+    if (!session) {
         throw redirect(307, '/login');
-    }
-
-    if (session && accessingLoginPage) {
-        throw redirect(307, '/home');
     }
 
     return await resolve(event);
