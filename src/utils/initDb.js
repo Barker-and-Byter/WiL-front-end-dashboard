@@ -17,8 +17,6 @@ const testEmail = 'dev@gmail.com';
 const saltRounds = 10;
 const passwordHash = bcrypt.hashSync('password123', saltRounds);
 
-const insert = db.prepare('INSERT OR IGNORE INTO users (id, email, password_hash, name) VALUES (?, ?, ?, ?)')
-insert.run('1',testEmail,passwordHash,"jared")
-
-console.log("database succesfully initialised")
+const insert = db.prepare('INSERT OR IGNORE INTO users (id, email, password_hash, name) VALUES (?, ?, ?, ?)');
+insert.run('1',testEmail,passwordHash,"jared");
 }
