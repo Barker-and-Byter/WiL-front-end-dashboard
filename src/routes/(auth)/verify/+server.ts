@@ -1,7 +1,12 @@
 import { json } from '@sveltejs/kit';
 
 export async function GET({locals}) {
-    const session = await locals.auth();
+    let session = null;
+    try {
+        session = await locals.auth();
+    } catch (err) {
+        return new Response('Unauthorised', { status: 401 });
+    }
 
     if (!session || !session.user) {
         return new Response('Unauthorised', { status: 401 });

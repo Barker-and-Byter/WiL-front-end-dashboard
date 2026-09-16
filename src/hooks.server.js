@@ -7,7 +7,7 @@ import { initDB } from './utils/initDb';
 /** @type {import('@sveltejs/kit').Handle} */
 async function authorisation({ event, resolve }){
     //allow for my auth route to bypass redirection
-    if (event.url.pathname.startsWith('/auth')) {
+    if (event.url.pathname.startsWith('/auth') || event.url.pathname === '/api/verify') {
         return await resolve(event);
     }
 
@@ -35,7 +35,7 @@ export async function init() {
         return
     }
     console.log("Database succesfully initialised");
-    
+
 
 }
 export const handle = sequence(authHandle, authorisation);
