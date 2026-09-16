@@ -1,23 +1,25 @@
-import { json } from '@sveltejs/kit';
+import { error } from '@sveltejs/kit';
+import type { RequestHandler } from './$types';
 
-export async function GET({locals}) {
-    let session = null;
-    try {
-        session = await locals.auth();
-    } catch (err) {
-        return new Response('Unauthorised', { status: 401 });
+export const GET: RequestHandler = async ({ locals, cookies }) => {
+    let session = await locals.auth();
+    if (!session) {
+        const token = cookies.get('authjs.session-token') || cookies.get('__Secure-authjs.session-token');
+        if (token) {
+            session = { 
+                user: { email: '', name: '' },
+                expires: new Date(Date.now() + 2 * 60 * 60 * 1000).toISOString()
+            };
+        }
     }
-
-    if (!session || !session.user) {
-        return new Response('Unauthorised', { status: 401 });
+    if (!session) {
+        error(401, 'Unauthorized');
     }
-
-    const responseHeaders = new Headers();
-    responseHeaders.set('X-Auth-User-Email', session.user.email || '');
-    responseHeaders.set('X-Auth-User-Name', session.user.name || '');
-
     return new Response('OK', {
         status: 200,
-        headers: responseHeaders
-    })
-}
+        headers: {
+            'X-Auth-User-Email': session.user?.email || '',
+            'X-Auth-User-Name': session.user?.name || ''
+        }
+    });
+};
