@@ -11,8 +11,7 @@ async function authorisation({ event, resolve }) {
         pathname.startsWith('/auth') ||
         pathname.startsWith('/api/auth') ||
         pathname === '/verify' ||
-        pathname === '/' ||
-        pathname === '/login'
+        pathname === '/'
     ) {
         return await resolve(event);
     }
