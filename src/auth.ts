@@ -29,6 +29,7 @@ export const { handle, signIn, signOut } = SvelteKitAuth({
 
                     const isValid = await verifyPassword(password, user.password_hash);
                     if (!isValid) {
+                        console.warn(`[AUTH] Failed login attempt for user: ${email}`);
                         throw new Error("Invalid Password");
                     }
                     
@@ -68,7 +69,7 @@ export const { handle, signIn, signOut } = SvelteKitAuth({
                 const githubUsername = profile?.login as string | undefined;
 
                 if (!githubUsername || !env.ALLOWED_GITHUB_USERS.includes(githubUsername.toLowerCase())) {
-                    console.warn(`[AUTH Blocked Github User: ${githubUsername}`)
+                    console.warn(`[AUTH] Blocked Github User attempted sign in: ${githubUsername}`);
                     return false;
                 }
             }

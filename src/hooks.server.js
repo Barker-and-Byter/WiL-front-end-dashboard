@@ -3,18 +3,30 @@ import { sequence } from '@sveltejs/kit/hooks';
 import { handle as authHandle } from "./auth";
 import { initDB } from './utils/initDb';
 
- 
 /** @type {import('@sveltejs/kit').Handle} */
-async function authorisation({ event, resolve }){
-    //allow for my auth route to bypass redirection
-    if (event.url.pathname.startsWith('/auth') || event.url.pathname === '/verify' || event.url.pathname === '/' || event.url.pathname === '/login') {
+async function authorisation({ event, resolve }) {
+    const pathname = event.url.pathname;
+
+    if (
+        pathname.startsWith('/auth') ||
+        pathname.startsWith('/api/auth') ||
+        pathname === '/verify' ||
+        pathname === '/' ||
+        pathname === '/login'
+    ) {
+        return await resolve(event);
+    }
+
+    if (pathname  === '/login') {
         const session = await event.locals.auth();
-        if (session && event.url.pathname === '/login') {
+
+        const isSigningOut = event.url.searchParams.has('signout') || event.request.headers.get('referer')?.includes('signout');
+
+        if (session && !isSigningOut) {
             throw redirect(307, '/home');
         }
         return await resolve(event);
     }
-
     const session = await event.locals.auth();
 
     if (!session) {
@@ -27,13 +39,13 @@ async function authorisation({ event, resolve }){
 export async function init() {
     console.log("Initializing database");
     try {
-        await initDB()
+        await initDB();
     } catch (error) {
-        console.log("database initialisation failed");
-        return
+        console.log("Database initialisation failed", error);
+        return;
     }
-    console.log("Database succesfully initialised");
-
-
+    console.log("Database successfully initialised");
 }
+
+
 export const handle = sequence(authHandle, authorisation);
