@@ -57,17 +57,17 @@
 				<div class="bg-[hsl(0,0%,5%)]/60 backdrop-blur-lg divide-y divide-gray-800 rounded-md shadow-lg border border-[hsl(0,0%,30%)]">
 				<div class="py-1">
 
-        <a href="/servers/{serverManager.server1name}"
-		onclick={() => serverManager.set_current_server(serverManager.server1name)}
-		class="block text-left w-full px-4 py-2 text-sm text-indigo-400 hover:bg-[hsl(0,0%,10%)]"
-		>
-			{serverManager.server1name}
-        </a>
-        <a href="/servers/{serverManager.server2name}" 
-		onclick={() => serverManager.set_current_server(serverManager.server2name)}
-		class="block text-left w-full px-4 py-2 text-sm text-indigo-400 hover:bg-[hsl(0,0%,10%)]">
-					{serverManager.server2name}
-        </a>
+			{#each Object.values(serverManager.serverNames) as name}
+			{#if name}
+				<a 
+				href="/servers/{name}"
+				onclick={() => serverManager.set_current_server(name)}
+				class="block text-left w-full px-4 py-2 text-sm text-indigo-400 hover:bg-[hsl(0,0%,10%)]"
+				>
+				{name}
+				</a>
+			{/if}
+			{/each}
 			</div>
 			</div>
 			</div>

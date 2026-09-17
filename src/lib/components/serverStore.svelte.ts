@@ -1,6 +1,4 @@
-import { read } from "$app/server";
-import { Server } from "@sveltejs/kit";
-import { arraysEqual } from "layerchart/utils/array";
+
 
 interface ContainerStats {
     name: string;
@@ -11,18 +9,23 @@ interface ContainerStats {
 	}
 
 class ServerManager{
-    server1name = $state('');
-    server2name = $state('');
+    serverNames = $state<Record<string, string>>({});
+
     currentServer = $state();
     containers = $state<ContainerStats[]>([]);
 
+    set_server_name(serverId: string, hostname: string) {
+        this.serverNames[serverId.toLowerCase()] = hostname;
+    }
+
     set_current_server(server: string){
-        if (this.server1name == server){
-            this.currentServer = server;
-        } else if (this.server2name == server){
+        const serverExists = Object.values(this.serverNames).includes(server);
+
+        if (serverExists) {
             this.currentServer = server;
         }
     }
+
     get_container_stats(containerName: string){
         return this.containers.find(container => container.name === containerName);
     }

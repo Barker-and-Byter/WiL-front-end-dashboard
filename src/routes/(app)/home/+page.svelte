@@ -42,64 +42,70 @@ type DataPoint = {
 
 };
 
-// set series for data
-let chartData = $state<DataPoint[]>([]);
 
+
+
+type ServerData = { [key: string]: number | string | Date};
+type ServerConfig = { id: string; name: string };
 
 
 //Load in servers as event sources
+let chartData = $state<DataPoint[]>([]);
 let isLoading: boolean = $state(true);
-let serverCache1: DataPoint = {};
-let serverCache2: DataPoint = {};
+let serverCaches = $state<Record<string, ServerData>>({});
+let activeConnections: EventSource[] = [];
 let time = Date.now();
-let server1name = $state("");
-let server2name = $state("")
-let containers: Array<string> = [];
 let source: EventSource | null = null;
 
-const keys = ['s1CpuValue',
-'s2CpuValue',
-'s1RamValue',
-'s2RamValue',
-'s1DriveUsage',
-'s2DriveUsage',
-'s1DriveUsed',
-'s2DriveUsed',
-'s1DriveFree',
-'s2DriveFree',
-'s1upSpeed',
-'s1downSpeed'];
+let configuredServers =  $derived.by<ServerConfig[]>(() => {
+  const servers: ServerConfig[] = [];
 
-//flatten data and group by server 
-let flatData = $derived(
-  chartData.length > 0 ? pivotLonger(chartData, keys, 'server', 'value') : []
+  for (const key in env) {
+    if (key.startsWith('PUBLIC_EVENT_SOURCE_')){
+      const suffix = key.replace('PUBLIC_EVENT_SOURCE_', '');
+    servers.push({
+      id: suffix.toLowerCase(),
+      name: ""
+    });
+  }
+  }
+  return servers;
+});
+
+let dynaKeys = $derived(
+  configuredServers.flatMap(server => [
+    `${server.id}CpuValue`, `${server.id}RamValue`, `${server.id}DriveUsage`,
+    `${server.id}DriveUsed`, `${server.id}DriveFree`, `${server.id}upSpeed`, `${server.id}downSpeed`
+  ])
 );
-let dataByServer = $derived(
-  flatData.length > 0 ? group(flatData, (d) => d.server) : new Map()
-);
-//store series for annotations
-let Cpuseries = $derived([
-      { 
-        key: 's1CpuValue',
-        data: dataByServer.get('s1CpuValue') || [],
-        color: 'hsl(222 32 55)' },  //colour yellow
-      {
-        key: 's2CpuValue',
-        data: dataByServer.get('s2CpuValue') || [],
-        color: 'hsl(132 32 55)'}, //colour green
-	]);
+
+  let flatData = $derived(
+    chartData.length > 0 ? pivotLonger(chartData, dynaKeys, 'metricType', 'value') : []
+  );
+  
+  let dataByMetric = $derived(
+    flatData.length > 0 ? group(flatData, (d) => d.metricType) : new Map()
+  );
 
 
-let Ramseries = $derived([
-      { 
-        key: 's1RamValue',
-        data: dataByServer.get('s1RamValue') || [],
-        color: 'hsl(222 32 55)' },  //colour yellow
-      {
-        key: 's2RamValue',
-        data: dataByServer.get('s2RamValue') || [],
-        color: 'hsl(132 32 55)'}, //colour green
-	]);
+  let Cpuseries = $derived(
+    configuredServers.map((server, index) => ({
+      key: `${server.id}CpuValue`,
+      label: server.name,
+      data: dataByMetric.get(`${server.id}CpuValue`) || [],
+      color: index % 2 === 0 ? 'hsl(222 32 55)' : 'hsl(132 32 55)' 
+    }))
+  )
+
+
+  let Ramseries = $derived(
+    configuredServers.map((server, index) => ({
+      key: `${server.id}RamValue`,
+      label: server.name,
+      data: dataByMetric.get(`${server.id}RamValue`) || [],
+      color: index % 2 === 0 ? 'hsl(222 32 55)' : 'hsl(132 32 55)' 
+    }))
+  )
 
 //Function for aggregating the disk data to be later used within the data series. 
 let diskData = $derived(() =>{
@@ -109,15 +115,20 @@ let diskData = $derived(() =>{
   let freePoints : {server : String; value : number }[] = [];
 
   let latest = chartData[chartData.length - 1];
-  if(latest.s1DriveUsed != undefined) {
-  UsedPoints.push({ server : "Server 1", value : latest.s1DriveUsed });
-  } if (latest.s1DriveFree != undefined){
-    freePoints.push({ server : "Server 1", value : latest.s1DriveFree });
-  } if (latest.s2DriveUsed != undefined){
-    UsedPoints.push({ server : "Server 2", value : latest.s2DriveUsed });
-  } if (latest.s2DriveFree != undefined){
-    freePoints.push({ server : "Server 2", value : latest.s2DriveFree });
-  }
+
+  configuredServers.forEach(svr => {
+    const usedKey = `${svr.id}DriveUsed`;
+    const freeKey = `${svr.id}DriveFree`;
+
+    if (latest[usedKey] !== undefined) {
+      usedPoints.push({ server: svr.name, value: latest[usedKey]});
+    }
+    if (latest[usedKey] !== undefined){
+      freePoints.push({ server: svr.name, value: latest[freeKey]});
+    }
+  })
+
+
   return {used: UsedPoints, free: freePoints}
 })
 
@@ -136,104 +147,102 @@ let Diskseries = $derived([
 	]);
   
 let netData = $derived(() =>{
-  if (chartData.length == 0) return {server1 : [], server2 : []};
+  if (chartData.length == 0) return {};
 
+  const netMap: Record<string, { time: Date; value: number }[]> = {};
+  configuredServers.forEach(svr => {
+    netmap[svr.id] = [];
+    });
+    for (const item of chartData) {
+      configuredServers.forEach(svr => {
+        const upKey = `${svr.id}upSpeed`;
+        const downKey = `${svr.id}downSpeed`;
+        if (item[upKey] !== undefined && item[downKey] !== undefined) {
+          netMap[svr.id].push({
+            time: item.time!,
+            value: (item[upKey] as number) + (item[downKey] as number)
+          });
+        }
+      });
+    }
 
-  let server1Points : { time: Date; value: number }[] = [];
-  let server2Points : { time: Date; value: number }[] = [];
-
-  for (const item of chartData){
-  if (item.s1upSpeed != undefined && item.s1downSpeed != undefined){
-    server1Points.push({ time: item.time ?? new Date(), value: (Number(item.s1upSpeed) + Number(item.s1downSpeed))})
-  }
-  if (item.s2upSpeed != undefined && item.s2downSpeed != undefined){
-    server2Points.push({ time: item.time ?? new Date(), value: (Number(item.s2upSpeed) + Number(item.s2downSpeed))})  
-  } 
-  }
-  return {server1 : server1Points, server2: server2Points}
+    return netmap;
+  
 });
 
+let Netseries = $derived(
+  configuredServers.map((srv, index) => ({
+    key: srv.id,
+    label: srv.name,
+    data: netData()[srv.id] || [],
+    color: index % 2 === 0 ? 'hsl(222 32 55)' : 'hsl(132 32 55)'
+  }))
+);
 
-
-
-// Store series for combined Net utilisation information (per server)
-let Netseries = $derived([
-  {
-    key: 'Server1',
-    label: 'Server1',
-    data: netData().server1 || [],
-    color: 'hsl(222 32 55)'
-  },
-  {
-    key: 'Server2',
-    label: 'Server2',
-    data: netData().server2 || [],
-    color: 'hsl(132 32 55)'
-  }
-]);
 
 //ensures that data is synchronised before being displayed
 function combineData(){
-if (Object.keys(serverCache1).length > 0 && Object.keys(serverCache2).length > 0){
-  if (chartData.length > 0)  isLoading = false;
- const mergedPoint: DataPoint = {
-  time: new Date(),
-  ...serverCache1,
-  ...serverCache2
- }
- chartData = [...chartData, mergedPoint].slice(-60);
+  const allServersReady = configuredServers.every(srv => serverCaches[srv.id] !== undefined);
 
-} else {
-  return;
+  if (allServersReady) {
+    if(chartData.length > 0) isLoading = false;
+
+    const mergedPoint: DataPoint = {
+      time: new Date(),
+    };
+
+    configuredServers.forEach(server => {
+      Object.entries(serverCaches[server.id]).forEach(([metricKey, val]) => {
+        mergedPoint[`${server.id}${metricKey}`] = val;
+      });
+    });
+    chartData = [...chartData, mergedPoint].slice(-60);
+  }
 }
-}
 
-
-async function init(serverID) {
+async function initServer(serverId: string) {
   const res = await fetch("/api/auth", {
     method: "POST",
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ serverId: serverID})
+    headers: { 'Content-type' : 'application/json' },
+    body: JSON.stringify({ serverId })
   });
-  if (!res.ok){
-    status = "error";
-    return
-  }
 
-  connectStream(serverID);
+  if (!res.ok) return;
+  connectStream(serverId);
 }
 
-function connectStream(serverId) {
-  source = new EventSource(`/api/stream?serverId=${serverId}`);
+function connectStream(serverId: string){
+  const source = new EventSource(`/api/stream?serverId=${serverId}`);
+  activeConnections.push(source);
 
-    source.onmessage = (event) =>{
+      source.onmessage = (event) => {
       const data = JSON.parse(event.data);
-      const localTime = Date.now();
-      const latency = data.timestamp - localTime;
-      serverManager.server1name = data.hostname;
-
-        serverCache1 = {
-        s1CpuValue : Number(data.cpuUsage ?? 0),
-        s1RamValue: Number(data.ramUsage ?? 0),
-        s1DriveUsage: Number(data.driveUsage ?? 0),
-        s1DriveUsed: Number(data.driveUsed ?? 0),
-        s1DriveFree: Number(data.driveFree ?? 0),
-        s1RamUsed: Number(data.ramUsed ?? 0),
-        s1RamFree: Number(data.ramFree ?? 0),
-        s1upSpeed: Number(data.upSpeed ?? 0),
-        s1downSpeed: Number(data.downSpeed ?? 0),
-        s1writeSpeed: Number(data.writeSpeed ?? 0),
-        s1readSpeed: Number(data.readSpeed ?? 0),
-        s1latency: latency,
+      const latency = data.timestamp - Date.now();
+      if (data.hostname) {
+        const targetServer = configuredServers.find(srv => srv.id === serverId);
+        if (targetServer && targetServer.name !== data.hostname) {
+            targetServer.name = data.hostname;
+        }
+        
+        // Dynamic push to your global state store
+        serverManager.set_server_name(serverId, data.hostname);
+    }
+      serverCaches[serverId] = {
+        CpuValue: Number(data.cpuUsage ?? 0),
+        RamValue: Number(data.ramUsage ?? 0),
+        DriveUsage: Number(data.driveUsage ?? 0),
+        DriveUsed: Number(data.driveUsed ?? 0),
+        DriveFree: Number(data.driveFree ?? 0),
+        upSpeed: Number(data.upSpeed ?? 0),
+        downSpeed: Number(data.downSpeed ?? 0),
+        latency: latency,
       };
+
       combineData();
-
-  };
-  source.onerror = (err) => {
-    source.close();
-    return
-  }
-
+    };
+    source.onerror = () => {
+      source.close();
+    };
 }
 
 
@@ -242,46 +251,14 @@ onMount(() => {
   serverManager.currentServer = null;
   isLoading = true;
 
-  if (source) {
-    source.close();
+  configuredServers.forEach(server => {
+    initServer(server.id)
+  });
+
+  return () => {
+    activeConnections.forEach(conn => conn.close())
   }
-  init('one');
-  init('two');
-
-  // let serverSource2: EventSource = new EventSource(PUBLIC_EVENT_SOURCE_TWO + '/data-stream');
-  
-
-  // serverSource2.onmessage = (event) => {
-  //       const data = JSON.parse(event.data);
-
-  //     const localTime = Date.now();
-  //     const latency = data.timestamp - localTime;
-  //     if (serverManager.server2name == ""){
-  //       serverManager.server2name = data.hostname;
-  //     } 
-
-  //     serverCache2 = {
-  //       s2CpuValue : Number(data.cpuUsage ?? 0),
-  //       s2RamValue: Number(data.ramUsage ?? 0),
-  //       s2DriveUsage: Number(data.driveUsage ?? 0),
-  //       s2DriveUsed: Number(data.driveUsed ?? 0),
-  //       s2DriveFree: Number(data.driveFree ?? 0),
-  //       s2RamUsed: Number(data.ramUsed ?? 0),
-  //       s2RamFree: Number(data.ramFree ?? 0),
-  //       s2upSpeed: String(data.upSpeed ?? "0"),
-  //       s2downSpeed: String(data.downSpeed ?? "0"),
-  //       s2writeSpeed: Number(data.writeSpeed ?? 0),
-  //       s2readSpeed: Number(data.readSpeed ?? 0),
-  //       s2latency: latency,
-  //     };
-  //     combineData();
-  // }
-
-  // return () => {
-  //   source.close();
-  //   serverSource2.close();
-  // }
-})
+});
 
 </script>
 

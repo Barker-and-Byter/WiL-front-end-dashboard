@@ -189,12 +189,14 @@ $effect(() =>{
     if (eventsource) {
         eventsource.close();
     }
+	const ServerId = Object.keys(serverManager.serverNames).find(
+    	(id) => serverManager.serverNames[id] === serverManager.currentServer
+	);
 
-    if (serverManager.server1name === serverManager.currentServer){
-		eventsource = new EventSource('/api/stream?serverId=one');
-
-    } else if (serverManager.server2name === serverManager.currentServer){
-        eventsource = new EventSource('/api/stream?serverId=two');
+	if (ServerId) {
+    eventsource = new EventSource(`/api/stream?serverId=${ServerId}`);
+	} else {
+    console.warn(`Could not locate an active stream ID for server configuration: ${serverManager.currentServer}`);
 	}
 
 	startReceiving(eventsource);

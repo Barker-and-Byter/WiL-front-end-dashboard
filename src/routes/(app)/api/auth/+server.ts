@@ -17,8 +17,11 @@ export const POST: RequestHandler = async ({ request, fetch, cookies }) => {
   const apiToken = (privateEnv as Record<string, string | undefined>)[tokenKey];
   const eventSource = (publicEnv as Record<string, string | undefined>)[sourceKey];
 
-  if (!apiToken || !eventSource) {
-    throw error(400, `Invalid or unconfigured server Id: ${serverId}` );
+  if (!apiToken) {
+    throw error(400, `Invalid Syntax or missing api token for server id: ${serverId}` );
+  }
+  if (!eventSource) {
+    throw error(400, `Invalid Syntax or missing event source for server id: ${serverId}` );
   }
 
 
