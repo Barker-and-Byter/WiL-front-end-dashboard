@@ -151,7 +151,7 @@ let netData = $derived(() =>{
 
   const netMap: Record<string, { time: Date; value: number }[]> = {};
   configuredServers.forEach(svr => {
-    netmap[svr.id] = [];
+    netMap[svr.id] = [];
     });
     for (const item of chartData) {
       configuredServers.forEach(svr => {
@@ -166,7 +166,7 @@ let netData = $derived(() =>{
       });
     }
 
-    return netmap;
+    return netMap;
   
 });
 
