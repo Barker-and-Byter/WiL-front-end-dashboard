@@ -10,41 +10,6 @@ import { serverManager } from '$lib/components/serverStore.svelte';
 import dockerlogowhite from '$lib/assets/docker-logo-white.svg?raw';
 const dockerlogowhiteencoded = 	`data:image/svg+xml,${encodeURIComponent(dockerlogowhite)}`;
 
-
-type DataPoint = {
-  time?: Date;
-  s1CpuValue?: number;
-  s1RamValue?: number;
-  s1DriveUsage?: number;
-  s1DriveUsed?: number;
-  s1DriveFree?: number;
-  s1RamUsed?: number;
-  s1RamFree?: number;
-  s1upSpeed?: number;
-  s1downSpeed?: number;
-  s1writeSpeed?: number;
-  s1readSpeed?: number;
-  s1timestamp?: number;
-  s1latency? : number;
-  s2CpuValue?: number;
-  s2RamValue?: number;
-  s2DriveUsage?: number;
-  s2DriveUsed?: number;
-  s2DriveFree?: number;
-  s2RamUsed?: number;
-  s2RamFree?: number;
-  s2upSpeed?: string;
-  s2downSpeed?: string;
-  s2writeSpeed?: number;
-  s2readSpeed?: number;
-  s2timestamp?: number;
-  s2latency? : number;
-
-};
-
-
-
-
 type ServerData = { [key: string]: number | string | Date};
 type ServerConfig = { id: string; name: string };
 
@@ -224,7 +189,6 @@ function connectStream(serverId: string){
             targetServer.name = data.hostname;
         }
         
-        // Dynamic push to your global state store
         serverManager.set_server_name(serverId, data.hostname);
     }
       serverCaches[serverId] = {
