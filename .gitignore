@@ -26,3 +26,5 @@ vite.config.ts.timestamp-*
 credentials.db
 *.sqlite
 *.sqlite3
+src/utils/initdb.js
+src/utils/db.ts

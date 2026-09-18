@@ -439,7 +439,7 @@ onMount(() => {
   <AreaChart
     y="value"
     x="time"
-    series={Netseries}
+    series={Diskseries}
     annotations={Netseries.flatMap((s) => {
 		const lastDataPoint = s.data?.[s.data.length - 1] ?? null;
     if (!lastDataPoint) return [];
