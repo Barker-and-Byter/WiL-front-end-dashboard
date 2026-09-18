@@ -121,7 +121,7 @@ let diskData = $derived(() =>{
     const freeKey = `${svr.id}DriveFree`;
 
     if (latest[usedKey] !== undefined) {
-      usedPoints.push({ server: svr.name, value: latest[usedKey]});
+      UsedPoints.push({ server: svr.name, value: latest[usedKey]});
     }
     if (latest[usedKey] !== undefined){
       freePoints.push({ server: svr.name, value: latest[freeKey]});
